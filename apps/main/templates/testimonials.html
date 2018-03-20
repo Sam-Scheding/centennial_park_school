@@ -1,0 +1,46 @@
+{% load static %}
+<script src="{% static "js/responsiveslides.min.js" %}"></script>
+<script>
+    // You can also use "$(window).load(function() {"
+    $(function () {
+      $("#slider2").responsiveSlides({
+        auto: true,
+        pager: true,
+        speed: 300,
+        namespace: "callbacks",
+      });
+    });
+  </script>
+
+
+{% if testimonials %}
+<!--clients star here-->
+<div class="clients">
+	<div class="container">
+		<div class="clients-main">	
+			<div class="clients-top">
+				<h3>Student Testimonials</h3>
+			</div>
+		 <div class="slider-bann wow bounceInRight" data-wow-delay="0.3s">
+	    <ul class="rslides" id="slider2">
+
+	{% for testimonial in testimonials %}
+
+	      <li>
+	      	<div class="clients-text">	 
+	      		<!-- <img src="{% static "img/c1.png" %}" alt="">    	     	 -->
+		     	<p>{{ testimonial.text }}</p>		 		        
+		        <h4>{{ testimonial.name }}</h4>
+	        </div>
+	      </li>
+
+	{% endfor %}
+
+	    </ul>
+	    </div>
+    </div>
+
+	</div>
+</div>
+<!--clients end here-->
+{% endif %}

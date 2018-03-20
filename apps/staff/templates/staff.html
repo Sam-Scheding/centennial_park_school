@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}Staff{% endblock %}
+
+
+{% block content %}
+{% include 'nav.html' with banner='banner1' %}
+<br>
+<style type="text/css">
+    .hide-bullets{
+        display: inline-block;
+    }
+</style>
+<div class="container-fluid team">
+    <div class="row">
+        <div class="col-sm-6" id="slider-thumbs">
+            <h1>Our Team</h1>
+        {% if exec_staff %}
+            <h2>Executives</h2>
+            <ul class="hide-bullets">
+            {% for team_member in exec_staff %}
+                <li class="col-sm-4" style="list-style: none;">
+                    <a class="thumbnail" id="carousel-selector-0" onclick="showStaff({{ team_member.id }})" style="min-width: 175px;">
+                        {% if team_member.image %}
+                        <img src="{{ MEDIA_URL }}{{ team_member.image }}" class="img-thumbnail" alt="{{ team_member.first_name }}">
+                        {% else %}
+                        <img src="{{ MEDIA_URL }}blank_profile.png" class="img-thumbnail" alt="{{ team_member.first_name }}">
+                        {% endif %}
+                        <h4 class="caption">{{ team_member.first_name }} - {{ team_member.role }}</h4>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+            <br>
+        {% endif %}
+        {% if teaching_staff %}
+            <h2>Teachers</h2>
+            <ul class="hide-bullets">
+            {% for team_member in teaching_staff %}
+                <li class="col-sm-4" style="list-style: none;">
+                    <a class="thumbnail" id="carousel-selector-0" onclick="showStaff({{ team_member.id }})" style="min-width: 175px;">
+                        {% if team_member.image %}
+                        <img src="{{ MEDIA_URL }}{{ team_member.image }}" class="img-thumbnail" alt="{{ team_member.first_name }}">
+                        {% else %}
+                        <img src="{{ MEDIA_URL }}blank_profile.png" class="img-thumbnail" alt="{{ team_member.first_name }}">
+                        {% endif %}
+                        <h4 class="caption">{{ team_member.first_name }} - {{ team_member.role }}</h4>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+            <br>
+        {% endif %}
+        {% if non_teaching_staff %}
+            <h2>Support Staff</h2>
+            <ul class="hide-bullets">
+            {% for team_member in non_teaching_staff %}
+                <li class="col-sm-4" style="list-style: none;">
+                    <a class="thumbnail" id="carousel-selector-0" onclick="showStaff({{ team_member.id }})" style="min-width: 175px;">
+                        {% if team_member.image %}
+                        <img src="{{ MEDIA_URL }}{{ team_member.image }}" class="img-thumbnail" alt="{{ team_member.first_name }}">
+                        {% else %}
+                        <img src="{{ MEDIA_URL }}blank_profile.png" class="img-thumbnail" alt="{{ team_member.first_name }}">
+                        {% endif %}
+                        <h4 class="caption">{{ team_member.first_name }} - {{ team_member.role }}</h4>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+            <br>
+        {% endif %}
+        {% if other_staff %}
+            <h2>Other</h2>
+            <ul class="hide-bullets">
+            {% for team_member in other_staff %}
+                <li class="col-sm-4" style="list-style: none;">
+                    <a class="thumbnail" id="carousel-selector-0" onclick="showStaff({{ team_member.id }})" style="min-width: 175px;">
+                        {% if team_member.image %}
+                        <img src="{{ MEDIA_URL }}{{ team_member.image }}" class="img-thumbnail" alt="{{ team_member.first_name }}">
+                        {% else %}
+                        <img src="{{ MEDIA_URL }}blank_profile.png" class="img-thumbnail" alt="{{ team_member.first_name }}">
+                        {% endif %}
+                        <h4 class="caption">{{ team_member.first_name }} - {{ team_member.role }}</h4>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+            <br>
+        {% endif %}
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+        {% if exec_staff %}
+            {% for team_member in exec_staff %}
+            <div class="blurb" id="blurb-{{ team_member.id }}" data-staff="{{ team_member.id }}">
+                <h3>{{ team_member.first_name }}</h3>
+                {{ team_member.blurb|safe }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% if teaching_staff %}
+            {% for team_member in teaching_staff %}
+            <div class="blurb" id="blurb-{{ team_member.id }}" data-staff="{{ team_member.id }}">
+                <h3>{{ team_member.first_name }}</h3>
+                {{ team_member.blurb|safe }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% if non_teaching_staff %}
+            {% for team_member in non_teaching_staff %}
+            <div class="blurb" id="blurb-{{ team_member.id }}" data-staff="{{ team_member.id }}">
+                <h3>{{ team_member.first_name }}</h3>
+                {{ team_member.blurb|safe }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% if other_staff %}
+            {% for team_member in other_staff %}
+            <div class="blurb" id="blurb-{{ team_member.id }}" data-staff="{{ team_member.id }}">
+                <h3>{{ team_member.first_name }}</h3>
+                {{ team_member.blurb|safe }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){ $('.blurb').each(function(){ $(this).hide(); }); }); // Hide the blurbs initially
+
+    function showStaff(topic){
+
+        console.log(topic);
+        $('.blurb').each(function(){ $(this).hide(); });
+        $('#blurb-'+topic).show();
+    }
+</script>
+
+{% endblock %}

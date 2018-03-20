@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Publications{% endblock %}
+
+{% block content %}
+{% include 'nav.html' with banner='banner1' %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+{% if newsletters %}
+    <br>
+	<div class="event-text">
+		<h4>Newsletters</h4>
+	</div>
+	<div class="publications" data-example-id="contextual-table">
+	    <table class="table">
+	      <thead>
+	        <tr>
+	          <th><h4 class="event-text">Name</h4></th>
+	          <th><h4 class="event-text">Year</h4></th>
+	          <th><h4 class="event-text">Term</h4></th>
+	          <th><h4 class="event-text">Size</h4></th>
+	        </tr>
+	      </thead>
+	      <tbody>
+
+		{% for newsletter in newsletters %}
+	        <tr>
+	          <td><a href="{{ MEDIA_URL }}{{ newsletter }}">Centennial Park School Newsletter</a></td>
+	          <td>{{ newsletter.year }}</td>
+              <td>{{ newsletter.term }}</td>
+	          <td>{{ newsletter.file_obj.size|filesizeformat }}</td>
+	        </tr>
+	    {% endfor %}
+	      </tbody>
+	    </table>
+	  </div>
+{% endif %}
+{% if asrs %}
+    <br>
+	<div class="event-text">
+		<h4>Annual School Reports</h4>
+	</div>
+	<div class="bs-example" data-example-id="contextual-table">
+	    <table class="table">
+	      <thead>
+	        <tr>
+	          <th><h4 class="event-text">Name</h4></th>
+	          <th><h4 class="event-text">Year</h4></th>
+	          <th><h4 class="event-text">Size</h4></th>
+	        </tr>
+	      </thead>
+	      <tbody>
+
+		{% for asr in asrs %}
+	        <tr>
+	          <td><a href="{{ MEDIA_URL }}{{ asr }}">Centennial Park School - Annual School Report</a></td>
+	          <td>{{ asr.year }}</td>
+	          <td>{{ asr.file_obj.size|filesizeformat }}</td>
+	        </tr>
+	    {% endfor %}
+	      </tbody>
+	    </table>
+	  </div>
+{% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

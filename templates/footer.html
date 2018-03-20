@@ -1,0 +1,65 @@
+<!--footer start here-->
+<div class="footer">
+	<div class="container">
+		<div class="footer-main">
+			<div class="footer-top">
+				<div class="col-md-6 ftr-grid">
+					<h3>Our Address</h3>
+					<div class="ftr-address">
+						<div class="local">
+							<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+						</div>
+						<div class="ftr-text">
+							<p>Level 1/78 Avoca Street, Randwick NSW 2031</p>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+					<div class="ftr-address">
+						<div class="local">
+							<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+						</div>
+						<div class="ftr-text">
+							<p>Phone: 9310 0588</p>
+							<p>Fax: 9310 0480</p>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+				<div class="col-md-6 ftr-grid">
+					<h3>Subscribe To The Newsletter</h3>
+					<form action="/subscribe" method="GET">
+						{% csrf_token %}
+						<input type="text" placeholder="Enter Email"  name="Enter Email" required="">
+						<input type="submit" value="">
+					</form>
+					<ul class="ftr-social-icons">
+						<li><a class="fa" href="#"> </a></li>
+						<li><a class="tw" href="#"> </a></li>
+						<li><a class="dri" href="#"> </a></li>
+						<li><a class="p" href="#"> </a></li>
+						
+					</ul>
+				</div>
+			   <div class="clearfix"> </div>
+			</div>
+			<div class="footer-bottom">
+				<div class="col-md-8 ftr-navg">
+					<ul>
+						<li><a href="/">Home</a></li>
+						<li><a href="/about">About</a></li>
+						<li><a href="/gallery">Gallery</a></li>
+						<li><a href="/publications">Publications</a></li>
+						<li><a href="/enrol">Enrolment</a></li>
+						<li><a href="/payments">Payments</a></li>
+						<li><a href="/contact">Contact</a></li>
+					</ul>
+				</div>
+				<div class="col-md-4 copyrights">
+					<p>© 2016 Learning. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--footer end here-->

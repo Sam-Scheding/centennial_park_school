@@ -1,0 +1,56 @@
+{% extends 'tracking_base.html' %}
+{% load static %}
+{% block title %}Tracking{% endblock %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}" />
+    {{ form.media }}
+	<!-- link styling -->
+	<link rel="stylesheet" href="{% static 'css/tracking_style.css' %}" type="text/css" media="screen" />
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'nav.html' with banner='small' authed=True%}
+
+{% if user.is_authenticated %}
+<br>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+		    <table class="table sortable">
+		      <thead>
+		        <tr>
+		          <th><h4><a class="table_header_link" href="#">First Name</a></h4></th>
+		          <th><h4><a class="table_header_link" href="#">Last Name</a></h4></th>
+		          <th><h4><a class="table_header_link" href="#">Class</a></h4></th>
+		          <th><h4><a class="table_header_link" href="#">Year</a></h4></th>
+		          <th><h4><a class="table_header_link" href="#">Enroled</a></h4></th>
+		          <th><h4><a class="table_header_link" href="#"></a></h4></th>
+
+		        </tr>
+		      </thead>
+		      <tbody>
+		      	<form method="POST" action="/tracking/edit_student/{{ student.id }}">		      		
+		      	{% csrf_token %}
+		      	{% for field in form %}
+		      		<td>{{ field }}</td>
+		      	{% endfor %}
+                    <td><input type="submit" class="btn btn-default" value="Save"></td>		      	
+		      	</form>
+		      </tbody>
+		      <tfoot>
+		      </tfoot>
+		      </form>
+		    </table>
+		</div>
+	</div>
+</div>
+
+
+{% else %}
+	You are not logged in, log in <a href="/accounts/login">here</a>
+{% endif %}	
+
+{% endblock %}

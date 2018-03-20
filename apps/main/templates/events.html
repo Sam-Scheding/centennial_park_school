@@ -1,0 +1,118 @@
+{% load static %}
+
+<!--event start here-->
+
+{% if events %}
+<div class="events">
+	<div class="container">
+		<div class="events-main">
+			<div class="events-top">
+				<h3>Events</h3>
+			</div>
+
+			{% for event in events %}
+
+			<div class="events-grid">
+				<div class="col-md-3 event-month wthree">
+					<h3>{{ event.date_day }}</h3>
+					<h4>{{ event.date_month }}</h4>
+				</div>
+				<div class="col-md-5 event-text">
+					<h4>{{ event.title }}</h4>
+					<p>{{ event.body }}</p>
+					{% if event.permission_slip %}
+						<a href="/downloads/permission_slips/{{ event.id }}">Download the permission slip here</a>
+					{% endif %}
+				</div>
+<!-- 				
+				<div class="col-md-4 event-img">
+					<div class="item item-type-move">
+						<a class="item-hover" href="single.html">						
+							<div class="item-info">
+								<div class="headline">
+									Learning
+									<div class="line"> </div>
+								</div>
+								<div class="date">Lorem ipsum dolor</div>							
+							</div>
+							<div class="mask"> </div>
+					    </a>
+						<div class="item-img">
+								<img src="{%static "img/e1.jpg" %}" class="img-responsive" alt="">
+						</div>
+	                </div>
+				</div>
+ -->
+			   <div class="clearfix"> </div>
+			</div>
+
+			{% endfor %}
+		</div>
+	</div>
+</div>
+<!--event end here-->
+		{% endif %}
+<!-- 
+			<div class="events-grid">
+				<div class="col-md-3 event-month wthree">
+					<h3>24</h3>
+					<h4>June</h4>
+				</div>
+				<div class="col-md-5 event-text">
+					<h4>Lorem ipsum dolor sit amet</h4>
+					<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+					<a href="single.html">Read More</a>
+					<p> </p>
+				</div>
+				<div class="col-md-4 event-img">
+					<div class="item item-type-move">
+						<a class="item-hover" href="single.html">						
+							<div class="item-info">
+								<div class="headline">
+									Learning
+									<div class="line"> </div>
+								</div>
+								<div class="date">Lorem ipsum dolor</div>							
+							</div>
+							<div class="mask"> </div>
+					    </a>
+						<div class="item-img">
+								<img src="{%static "img/e2.jpg" %}" class="img-responsive" alt="">
+						</div>
+                </div>
+				</div>
+			   <div class="clearfix"> </div>
+			</div>
+
+			<div class="events-grid">
+				<div class="col-md-3 event-month wthree">
+					<h3>26</h3>
+					<h4>June</h4>
+				</div>
+				<div class="col-md-5 event-text">
+					<h4>Lorem ipsum dolor sit amet</h4>
+					<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+					<a href="single.html">Read More</a>
+					<p> </p>
+				</div>
+				<div class="col-md-4 event-img">
+					<div class="item item-type-move">
+						<a class="item-hover" href="single.html">						
+							<div class="item-info">
+								<div class="headline">
+									Learning
+									<div class="line"> </div>
+								</div>
+								<div class="date">Lorem ipsum dolor</div>							
+							</div>
+							<div class="mask"> </div>
+					    </a>
+						<div class="item-img">
+								<img src="{%static "img/e3.jpg" %}" class="img-responsive" alt="">
+						</div>
+                </div>
+				</div>
+			   <div class="clearfix"> </div>
+			</div>
+
+ -->			

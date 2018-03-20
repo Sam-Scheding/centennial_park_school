@@ -1,0 +1,290 @@
+{% extends 'tracking_base.html' %}
+{% load static %}
+{% block title %}{{ student.full_name }}{% endblock %}
+{% block head %}
+
+	<link rel="stylesheet" type="text/css" href="{% static '/admin/css/base.css' %}" />
+	<style type="text/css">
+		.weekday_points{
+			width: 80px;
+		}
+	</style>
+	<script type="text/javascript">
+
+		function validForm() {
+			return $('#id_week').val() && $('#id_term').val() && $('#id_year').val() && $('#id_b1').val() && $('#id_b2').val();
+		}
+		function submitIfUnique(){
+
+			if(!validForm()){ 
+				alert("Missing required field");
+				return; 
+			}
+			var form_data = {
+				'student': {{ student.id }},
+				'year': $('#id_year').val(),
+				'term': $('#id_term').val(),
+				'week': $('#id_week').val(),
+			};
+			$.ajax({
+		    	url: "/api/behaviour_tracking/is_unique", 
+		    	method: "GET",
+		    	dataType: "json",
+		    	data: form_data,
+		    	success: function(behaviour_tracking){
+		    		if(behaviour_tracking['already_exists']){
+			    		confirmed = window.confirm("The data for term " + form_data['term'] + " week " + form_data['week'] + ", " + form_data['year'] + " has already been entered for " + behaviour_tracking['student'] + ". Are you sure you want to overwrite this?");
+			    		if(!confirmed){  return; }
+		    		}
+					var form = $('#behaviour_tracking_form');				    
+					form.attr('action', '/tracking/behaviour_tracking/{{ student.id }}');
+					form.attr('method', 'POST');
+		    		form.submit();
+		    	}
+			});
+		}
+
+	</script>
+
+{% endblock %}
+
+{% block content %}
+{% include 'nav.html' with banner='small' authed=True%}
+
+{% if user.is_authenticated %}
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				{% include 'tabs.html' with behaviour_tracking='active' %}
+				<br>
+				<!-- <center> -->
+					<h1 style="font-size: 25pt;"><b>{{ student.full_name }}</b></h1>
+				<!-- </center> -->
+		      	<form id="behaviour_tracking_form">{% csrf_token %}</form>
+			    <table class="table"> 
+			      <thead>
+			        <tr>
+			          <th><h4>Week</h4></th>
+			          <th><h4>Term</h4></th>
+			          <th><h4>Year</h4></th>
+			          <th><h4>Behaviour Target 1</h4></th>
+			          <th><h4>Behaviour Target 2</h4></th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			        <tr>
+			      		<td>{{ form.week }}</td>
+			      		<td>{{ form.term }}</td>
+			      		<td>{{ form.year }}</td>
+			      		<td>{{ form.b1 }}</td>
+			      		<td>{{ form.b2 }}</td>
+			      	</tr>
+			      </tbody>
+			    </table>
+			    <br>
+			    <table class="table">
+			    	<thead>		    		
+				      	<tr>
+				          <th></th>				          
+				          <th><h4>Monday</h4></th>
+				          <th><h4>Tuesday</h4></th>
+				          <th><h4>Wednesday</h4></th>
+				          <th><h4>Thursday</h4></th>
+				          <th><h4>Friday</h4></th>
+				        </tr>
+			    	</thead>
+			      	<tr>
+			      		<td><h4>Attendance: </h4></td>
+			      		<td>{{ form.monday_attended }}</td>
+			      		<td>{{ form.tuesday_attended }}</td>
+			      		<td>{{ form.wednesday_attended }}</td>
+			      		<td>{{ form.thursday_attended }}</td>
+			      		<td>{{ form.friday_attended }}</td>
+			      	</tr>
+			      	<tr>
+			      		<td><h4>Points: </h4></td>
+			      		<td>{{ form.monday_points }}</td>
+			      		<td>{{ form.tuesday_points }}</td>
+			      		<td>{{ form.wednesday_points }}</td>
+			      		<td>{{ form.thursday_points }}</td>
+			      		<td>{{ form.friday_points }}</td>
+			      	</tr>
+			      	<tr>
+			      		<td><h4>Time Arrived: </h4></td>
+			      		<td>{{ form.monday_arrived }}</td>
+			      		<td>{{ form.tuesday_arrived }}</td>
+			      		<td>{{ form.wednesday_arrived }}</td>
+			      		<td>{{ form.thursday_arrived }}</td>
+			      		<td>{{ form.friday_arrived }}</td>
+			      	</tr>
+			      	<tr>
+			      		<td></td>
+			      		<td></td>
+			      		<td></td>
+			      		<td><input type="hidden" name="student" value="{{ student }}"></td>
+			      		<td>{{ form.student }}</td>
+	                    <td><input type="button" class="btn btn-default" onclick="submitIfUnique()" value="Add Data" style="width: 190px;"></td>
+			      	</tr>
+			      </tbody>
+			      <tfoot>			      	
+			      </tfoot>
+			 	</table>
+			 	<div>{{ form.errors }}</div>
+			</div>
+		</div>
+	</div>
+	<div id="student-graph" class="col-md-12"></div>
+	<div class="container-fluid"> 
+		<div class="row">
+			<div id="student-average-points" class="col-md-12">
+				<h1><b>Average Points:</b></h1>
+				<div class="panel panel-default">
+				  <div class="panel-heading">
+				  	<div class="container-fluid">
+				  		<div class="row">			  		
+						  	<div class="col-md-2">Monday</div>
+						  	<div class="col-md-2">Tuesday</div>
+						  	<div class="col-md-2">Wednesday</div>
+						  	<div class="col-md-2">Thursday</div>
+						  	<div class="col-md-2">Friday</div>
+						  	<div class="col-md-2">Overall</div>
+						</div>
+				  	</div>
+				  </div>
+				  <div class="panel-body">
+				  	<div class="container-fluid">
+				  		<div class="row">			  		
+						  	<div id="points-monday" class="col-md-2"></div>
+						  	<div id="points-tuesday" class="col-md-2"></div>
+						  	<div id="points-wednesday" class="col-md-2"></div>
+						  	<div id="points-thursday" class="col-md-2"></div>
+						  	<div id="points-friday" class="col-md-2"></div>
+						  	<div id="points-overall" class="col-md-2"></div>
+						</div>
+				  	</div>
+				  </div>
+				</div>
+			</div>
+		</div>		
+
+<!--
+		<div class="row">
+			<div id="student-average-points" class="col-md-12">
+				<h1><b>Average Attendance:</b></h1>
+				<div class="panel panel-default">
+				  <div class="panel-heading">
+				  	<div class="container-fluid">
+				  		<div class="row">			  		
+						  	<div class="col-md-2">Monday</div>
+						  	<div class="col-md-2">Tuesday</div>
+						  	<div class="col-md-2">Wednesday</div>
+						  	<div class="col-md-2">Thursday</div>
+						  	<div class="col-md-2">Friday</div>
+						  	<div class="col-md-2">Overall</div>
+						</div>
+				  	</div>
+				  </div>
+ 				  <div class="panel-body">
+				  	<div class="container-fluid">
+				  		<div class="row">			  		
+						  	<div id="attendance-monday" class="col-md-2"></div>
+						  	<div id="attendance-tuesday" class="col-md-2"></div>
+						  	<div id="attendance-wednesday" class="col-md-2"></div>
+						  	<div id="attendance-thursday" class="col-md-2"></div>
+						  	<div id="attendance-friday" class="col-md-2"></div>
+						  	<div id="attendance-overall" class="col-md-2"></div>
+						</div>
+				  	</div>
+				  </div>
+ 				</div>
+			</div>		
+		</div>		
+	</div>
+ -->
+
+
+<script>
+
+	$(document).ready(function(){
+
+	    $.ajax({
+	    	url: "/api/behaviour_tracking/{{ student.id }}", 
+	    	method: "GET",
+	    	dataType: "json",
+	    	success: function(student){
+
+    			loadGraph(student);
+    			addAveragePoints(student);
+    			addAverageAttendance(student);
+	    	}
+	    });
+	});
+
+
+
+	function addAveragePoints(student) {
+
+		$('#points-monday').text(student.average_monday_points.toFixed(2) + "%" );
+		$('#points-tuesday').text(student.average_tuesday_points.toFixed(2) + "%");
+		$('#points-wednesday').text(student.average_wednesday_points.toFixed(2) + "%");
+		$('#points-thursday').text(student.average_thursday_points.toFixed(2) + "%");
+		$('#points-friday').text(student.average_friday_points.toFixed(2) + "%");
+		var average = ((student.average_monday_points + student.average_tuesday_points + student.average_wednesday_points + student.average_thursday_points + student.average_friday_points)/5).toFixed(2);
+		$('#points-overall').text(average + "%");
+	}
+
+	function addAverageAttendance(student) {
+
+		$('#attendance-monday').text(student.average_monday_attendance + "%" );
+		$('#attendance-tuesday').text(student.average_tuesday_attendance + "%");
+		$('#attendance-wednesday').text(student.average_wednesday_attendance + "%");
+		$('#attendance-thursday').text(student.average_thursday_attendance + "%");
+		$('#attendance-friday').text(student.average_friday_attendance + "%");
+		var total_average = (student.average_monday_attendance + student.average_tuesday_attendance + student.average_wednesday_attendance + student.average_thursday_attendance + student.average_friday_attendance)/5;
+		$('#attendance-overall').text(total_average + "%");
+	}
+	function loadGraph(student){
+
+	    google.charts.load('current', {'packages':['corechart', 'scatter']});
+		google.charts.setOnLoadCallback(drawChart);
+
+		function drawChart() {
+		      var data = new google.visualization.DataTable();
+		      data.addColumn('number', 'X');
+		      data.addColumn('number', student.name);
+              data.addColumn({type: 'string', role: 'tooltip'});
+		      data.addRows(student.points);
+			  var rangeUpper = Math.max(50, student.num_days)
+		      var options = {
+
+		        pointSize: 3,
+		        legend: { position: 'none' },
+		        height: 500,
+		        chartArea:{ width:"90%", height:"90%" },
+		        hAxis: {
+		        	title: 'Day',
+					viewWindow: { max: rangeUpper, min:1 },
+					gridlines: { count: rangeUpper / 5 + 1, }
+		        },
+		        vAxis: {
+		        	title: 'Score',
+					viewWindow: { max:100, min:0, },          
+					gridlines: { count: 11, }
+		        },
+			    trendlines: { 0: {} },
+		      };
+	          var chart = new google.visualization.ScatterChart(document.getElementById('student-graph'));
+		      chart.draw(data, google.charts.Scatter.convertOptions(options));
+		    }
+
+
+	}
+
+</script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{% else %}
+	You are not logged in, log in <a href="/accounts/login">here</a>
+{% endif %}	
+{% endblock %}

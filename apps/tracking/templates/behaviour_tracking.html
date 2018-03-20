@@ -1,0 +1,170 @@
+{% extends 'tracking_base.html' %}
+{% load static %}
+{% block title %}Behaviour Tracking{% endblock %}
+{% block head %}
+    <script type="text/javascript" src="{% static '/admin/jsi18n/' %}"></script>
+    <script type="text/javascript" src="{% static '/admin_media/js/core.js' %}"></script>
+    {{ form.media }}
+
+    <link rel="stylesheet" type="text/css" href="{% static '/admin_media/css/forms.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static '/admin/css/base.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/admin_media/css/base.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '/admin_media/css/widgets.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/tracking_style.css' %}" type="text/css" media="screen" />
+
+	<style type="text/css">
+		.weekday_points{
+			width: 60px;
+		}
+	</style>
+
+	<script type="text/javascript">
+
+		function submitIfUnique(){
+
+			required = $('#id_student').val() && $('#id_year').val() && $('#id_term').val() && $('#id_week').val()
+			if(!required){ return; }
+			var form_data = {
+				'student': $('#id_student').val(),
+				'year': $('#id_year').val(),
+				'term': $('#id_term').val(),
+				'week': $('#id_week').val(),
+			};
+
+			$.ajax({
+		    	url: "/api/behaviour_tracking/is_unique", 
+		    	method: "GET",
+		    	dataType: "json",
+		    	data: form_data,
+		    	success: function(response){
+					var form = $('#behaviour_tracking_form');
+					form.attr('action', '/tracking/behaviour_tracking/');
+					form.attr('method', 'POST');
+					var submit = true;
+		    		if(!response['is_unique']){
+			    		confirmed = window.confirm("The data for term " + form_data['term'] + " week " + form_data['week'] + ", " + form_data['year'] + " has already been entered for " + response['student'] + ". Are you sure you want to overwrite this?");
+			    		if(!confirmed){ submit = false; }
+		    		}
+		    		if(submit){ form.submit(); }
+		    	}
+			});
+		}
+
+	</script>
+
+{% endblock %}
+
+{% block content %}
+{% include 'nav.html' with banner='small' authed=True%}
+
+{% if user.is_authenticated %}
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				{% include 'tabs.html' with behaviour_tracking='active' %}
+				<br>
+			    <table class="table">
+			      <thead>
+			        <tr>
+			          <th><h4>Student</h4></th>
+			          <th><h4>Week</h4></th>
+			          <th><h4>Term</h4></th>
+			          <th><h4>Year</h4></th>
+			          <th><h4>B1</h4></th>
+			          <th><h4>B2</h4></th>
+			          <th><h4>Monday</h4></th>
+			          <th><h4>Tuesday</h4></th>
+			          <th><h4>Wednesday</h4></th>
+			          <th><h4>Thursday</h4></th>
+			          <th><h4>Friday</h4></th>
+			          <th><h4>Add</h4></th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			      	<tr>			      		
+			      	<form id="behaviour_tracking_form">{% csrf_token %}
+				      	{% for field in form %}<td>{{ field }}</td>{% endfor %}
+	                    <td><input type="button" class="btn btn-default" onclick="submitIfUnique()" value="Add Points"></td>
+			      	</form>
+			      	</tr>
+			      </tbody>
+			      <tfoot>
+			      	
+			      </tfoot>
+			 	</table>
+			 	<div>{{ form.errors }}</div>
+			</div>
+		</div>
+	</div>
+
+
+<script>
+	$(document).ready(function(){
+
+	    $.ajax({
+	    	url: "/api/behaviour_tracking/", 
+	    	method: "GET",
+	    	dataType: "json",
+	    	success: function(students){
+
+	    		$.each(students, function(){
+	    			loadGraph(this);
+	    			showGraph(this);
+	    		});
+	    	}
+	    });		
+
+	});
+	
+	function showGraph(student){
+	    var chartDiv = document.createElement('div');
+	    $(chartDiv).attr('id', 'chart_div' + student.id);
+	    $(chartDiv).attr('class', 'chart_div');
+	    $(chartDiv).css("width", "100%");
+	    $(chartDiv).css("height", "200px");
+		$('body').append(chartDiv);
+	}
+
+	function loadGraph(student){
+
+		google.charts.load('current', {packages: ['corechart', 'line']});
+		google.charts.setOnLoadCallback(drawCurveTypes);
+
+		function drawCurveTypes() {
+		      var data = new google.visualization.DataTable();
+		      data.addColumn('number', 'X');
+		      data.addColumn('number', student.name);
+		      data.addRows(student.points);
+
+		      var rangeUpper = Math.max(50, student.most_recent_day);
+		      var options = {
+
+		        title: student.name,
+		        series: { 1: {curveType: 'function'} },
+		        legend: { position: 'none' },
+
+		        hAxis: {
+		        	title: 'Week',
+					viewWindow: { max: rangeUpper, min:1 },
+					gridlines: { count: Math.max(50, student.most_recent_day)/5 }
+		        },
+		        vAxis: {
+					viewWindow: { max:100, min:0 }          
+		        },
+		      };
+
+		      var chart = new google.visualization.LineChart(document.getElementById('chart_div' + student.id));
+		      chart.draw(data, options);
+		    }
+
+
+	}
+
+</script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{% else %}
+	You are not logged in, log in <a href="/accounts/login">here</a>
+{% endif %}	
+{% endblock %}

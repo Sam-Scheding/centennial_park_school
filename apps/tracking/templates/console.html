@@ -1,0 +1,119 @@
+{% extends 'tracking_base.html' %}
+{% load static %}
+{% block title %}Tracking{% endblock %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}" />
+    {{ form.media }}
+	<!-- link styling -->
+	<link rel="stylesheet" href="{% static 'css/tracking_style.css' %}" type="text/css" media="screen" />
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'nav.html' with banner='small' authed=True%}
+
+{% if user.is_authenticated %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				{% include 'tabs.html' with students='active' %}
+			    <table class="table sortable">
+			      <thead>
+			        <tr>
+			          <th><h4><a class="table_header_link" href="#">First Name</a></h4></th>
+			          <th><h4><a class="table_header_link" href="#">Last Name</a></h4></th>
+			          <th><h4><a class="table_header_link" href="#">Class</a></h4></th>
+			          <th><h4><a class="table_header_link" href="#">Year</a></h4></th>
+			          <th><h4><a class="table_header_link" href="#">Behaviour Tracking</a></h4></th>			          
+			          <!-- <th><h4><a class="table_header_link" href="#">Work It Outs</a></h4></th>			           -->
+			          <th><h4><a class="table_header_link" href="#">Edit Student</a></h4></th>
+			          <th><h4><a class="table_header_link" href="#">Disenroll</a></h4></th>
+			          <th><h4><a class="table_header_link" href="#">Add Students</a></h4></th>
+			        </tr>
+			        <tr>
+		                <form method="POST" action="/tracking/">
+		                	{% csrf_token %}
+		                	{% for field in form%}
+		                		<td>{{ field }}</td>
+		                	{% endfor %}
+	                		<td></td>
+	                		<td></td>
+	                		<td></td>
+		                    <td><input type="submit" class="btn btn-default" value="Add A Student"></td>
+		                </form>			        	
+			        </tr>
+			      </thead>
+			      <tbody>
+
+				{% for student in students %}
+					{% if student.enrolled %}
+			        <tr>
+			          <td>{{ student.first_name }}</td>
+			          <td>{{ student.last_name }}</td>
+			          <td>{{ student.class_name }}</td>
+			          <td>{{ student.year }}</td>
+			          <td><form method="GET" action="/tracking/behaviour_tracking/{{ student.id }}">{% csrf_token %}<input type="submit" value="Behaviour Tracking"></form></td>
+			          <!-- <td><form method="GET" action="/tracking/wios/{{ student.id }}">{% csrf_token %}<input type="submit" value="Add W/O"></form></td> -->
+			          <td><form action="/tracking/edit_student/{{ student.id }}" method="GET"><input type="submit" value="Edit Student"></form></td>
+			          <td><input type="submit" value="Disenrol" onclick="disenroll('{{ student.id }}', '{{ student.first_name }}', '{{ student.last_name }}')">
+			        </tr>
+			        {% endif %}
+			    {% endfor %}
+			      </tbody>
+			      <tfoot>
+			      	<tr>
+		                <form method="POST" action="/tracking/">
+		                	{% csrf_token %}
+		                	{% for field in form%}
+		                		<td>{{ field }}</td>
+		                	{% endfor %}
+	                		<td></td>
+	                		<td></td>
+	                		<td></td>
+		                    <td><input type="submit" class="btn btn-default" value="Add A Student"></td>
+		                </form>			      		
+			      	</tr>
+			      </tfoot>
+			      </form>
+			    </table>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		
+		function editStudent(student_id){
+
+		}
+
+		function disenroll(student_id, first_name, last_name) {
+			confirmation = confirm("Are you sure you want to remove " + first_name + " " + last_name + "?");
+			if(confirmation){
+
+			    var form = document.createElement("form");
+			    form.setAttribute("method", "POST");
+			    form.setAttribute("action", "disenroll/");
+
+	            var hiddenField = document.createElement("input");
+    			hiddenField.setAttribute("type", "hidden");
+    			hiddenField.setAttribute("name", "student_id");
+    			hiddenField.setAttribute("value", student_id);
+    			var csrf = document.createElement("input");
+    			csrf.setAttribute("type", "hidden");
+    			csrf.setAttribute("name", "csrfmiddlewaretoken");
+    			csrf.setAttribute("value", "{{ csrf_token }}");
+
+    			form.appendChild(hiddenField);
+    			form.appendChild(csrf);
+		    	document.body.appendChild(form);
+    			form.submit();
+			}
+		}
+	</script>
+{% else %}
+	You are not logged in, log in <a href="/accounts/login">here</a>
+{% endif %}	
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'tracking_base.html' %}
+{% load static %}
+{% block title %}Work It Outs{% endblock %}
+{% block head %}
+    <script type="text/javascript" src="{% static '/admin/jsi18n/' %}"></script>
+    <script type="text/javascript" src="{% static '/admin_media/js/core.js' %}"></script>
+    {{ form.media }}
+
+    <link rel="stylesheet" type="text/css" href="{% static '/admin_media/css/forms.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static '/admin/css/base.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/admin_media/css/base.css' %}"/>
+    <!-- <link rel="stylesheet" type="text/css" href="/admin_media/css/global.css"/> -->
+    <link rel="stylesheet" type="text/css" href="{% static '/admin_media/css/widgets.css' %}"/>
+
+{% endblock %}
+
+{% block content %}
+{% include 'nav.html' with banner='small' authed=True%}
+
+{% if user.is_authenticated %}
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+			{% include 'tabs.html' with wios='active' %}
+				<br>
+			    <table class="table">
+			      <thead>
+			        <tr>
+			          <th><h4><a href="">Student</a></h4></th>
+			          <th><h4><a href="">WIO Type</a></h4></th>		          
+			          <th><h4><a href="">Date</a></h4></th>
+			          <th><h4><a href="">Add</a></h4></th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			      	<tr>			      		
+			      	<form action="/tracking/wios/" method="POST">
+			      		{% csrf_token %}
+				      	{% for field in form %}
+			      		<td>{{ field }}</td>
+				      	{% endfor %}
+	                    <td><input type="submit" class="btn btn-default" value="Add W/O"></td>
+
+			      	</form>
+			      	</tr>
+
+			      </tbody>
+			      <tfoot>
+			      	
+			      </tfoot>
+			 	</table>
+
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		
+		function add_wio(student_id){
+		    var form = document.createElement("form");
+		    form.setAttribute("method", "POST");
+		    form.setAttribute("action", "add_wio/");
+
+	        var hiddenField = document.createElement("input");
+			hiddenField.setAttribute("type", "hidden");
+			hiddenField.setAttribute("name", "student_id");
+			hiddenField.setAttribute("value", student_id);
+
+			var csrf = document.createElement("input");
+			csrf.setAttribute("type", "hidden");
+			csrf.setAttribute("name", "csrfmiddlewaretoken");
+			csrf.setAttribute("value", "{{ csrf_token }}");
+
+			form.appendChild(hiddenField);
+			form.appendChild(csrf);
+	    	document.body.appendChild(form);
+			form.submit();
+
+		}
+	</script>
+
+{% else %}
+	You are not logged in, log in <a href="/accounts/login">here</a>
+{% endif %}	
+{% endblock %}

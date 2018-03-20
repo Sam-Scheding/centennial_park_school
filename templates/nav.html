@@ -1,0 +1,54 @@
+{% load static %}
+
+{% if header == 'big' %}
+<div class="agileits banner">
+	<div class="header-big">
+{% else %}
+<div class="agileits banner-small">
+	<div class="header">
+{% endif %}
+
+		<div class="container">
+			<div class="header-main">
+				<div class="logo">
+			       <h1><a href="/"><img src="{% static 'img/logo.png' %}" id="logo"/></a></h1>
+			    </div>
+				 <div class="top-nav">
+				 	 <span class="menu"> <img src="{% static 'img/icon.png' %}" alt=""></span>	
+				     <nav class="cl-effect-21" id="cl-effect-21">		
+							<ul class="res">
+								<li><a href="/" class="active">Home</a></li>
+								<li><a href="/about">About</a></li>
+								<li><a href="/gallery">Gallery</a></li>	
+								<li><a href="/publications">Publications</a></li>	
+								<li><a href="/staff">Staff</a></li>	
+								<li><a href="/payments">Payments</a></li>
+								<!-- <li><a href="/tracking">Tracking</a></li> -->
+								<li><a href="/contact">Contact</a></li>
+								{% if authed %}
+									<li><a href="/accounts/logout">Logout</a></li>
+								{% else %}
+									<li><a href="/accounts/login" target="_blank">Login</a></li>
+								{% endif %}
+							</ul>
+						</nav>
+						<!-- script-for-menu -->
+						 <script>
+						   $( "span.menu" ).click(function() {
+							 $( "ul.res" ).slideToggle( 300, function() {
+							 // Animation complete.
+							  });
+							 });
+						</script>
+						<!-- /script-for-menu -->
+				</div>
+				<div class="clearfix"> </div>
+				{% if bio %}
+					{% include 'banner.html' %}
+				{% endif %}
+			</div>
+	 	</div>
+   </div>
+</div>
+
+<!--banner end here-->

@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About{% endblock %}
+
+{% block head %}
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--Google Fonts-->
+<link type="text/css" rel="stylesheet" href="{% static 'css/colorfulTab.min.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+{% include 'nav.html' with header='small' %}
+
+	<!--tab start here-->
+	<script type="text/javascript" src="js/colorfulTab.min.js"></script>
+	  <script type="text/javascript">
+	    $(document).ready(function(){
+	        
+	        $("#colorful").colorfulTab();    
+	        
+	        $("#colorful-elliptic").colorfulTab({
+	            theme: "elliptic"
+	        }); 
+	       
+	       $("#colorful-flatline").colorfulTab({
+	            theme: "flatline"
+	        });    
+	        
+	        $("#colorful-background-image").colorfulTab({
+	            theme: "flatline",
+	            backgroundImage: "true",
+	            overlayColor: "#002F68",
+	            overlayOpacity: "0.8"
+	        });   
+	    
+	    });
+	  </script>
+	<!--tab start here-->
+	<!--about start here-->
+	<div class="about">
+		<div class="container">
+			<div class="about-top">
+				<h2>About Us</h2>
+				<p class="text-justify">Centennial Park School provides short-term intensive personalised educational programs and support for students in years 7-12 who have been diagnosed with mental health problems and/or disorders. The school has a capacity of 35 enrolments.</p>
+				<br>
+				<p class="text-justify">Centennial Park School provides access to the full curriculum, but emphasis is given to literacy, numeracy, vocational education, social skills and the development and management of appropriate behaviours and emotional regulation. All students are expected to engage in some form of therapy, either externally or within the school program, and regular school counselor discussions are encouraged. Weekly music therapy and art therapy sessions are offered with priority given to students not currently accessing outside mental health services. Centennial Park School is committed to delivering high quality personalised programs which engage students in a supportive learning environment and prepares students for their return to a regular secondary school or supporting their transition to other education and training opportunities.</p>
+				<br>
+				<h2>Curriculum</h2>
+				<p class="text-justify">Programs for students in years 9-12 are developed by Sydney Distance Education High School providing students with the opportunity to gain equitable access to the mainstream curriculum. Centennial Park School provides the academic program for Stage 4 students. The aim is to create an engaging program which allows for greater flexibility of content, and which is targeted in assessing and subsequently addressing, individual numeracy and literacy deficits.</p>
+				<br>
+				<p class="text-justify">The stage 4 program, in addition to the collaborative relationship with Sydney Distance Education High School, allows for such modifications as are necessary to meet individual needs and cater for individual learning styles. Life skills and blended mainstream/life skills programs are developed for students as appropriate.</p>
+				<br>
+				<p class="text-justify">All students have access to computer and internet technology, and specific skills in these areas are taught in an integrated manner through all key learning areas and in specific computer classes.</p>
+				<br>
+
+				<h2>Transition/Integration</h2>
+				<p class="text-justify">Families, students, regional staff, the school counselor, and Principal collaborate and consult with relevant schools, TAFE colleges, workplaces and other agencies to facilitate successful reintegration into mainstream settings or transition into work/further education. Teachers are released when possible in order to visit students in their mainstream setting, and support successful integration and aid in determining impediments.</p>
+				<br>
+
+				<h2>Pro Social Interpersonal Skills</h2>
+				<p class="text-justify">One of the school's prime focal points is social skill development and the school aims to provide an environment in which pro-social skills are demonstrated and encouraged at all times. Consistent modelling and explicit facilitative explanation are a part of the daily fabric of the school's life. In addition, in-class programs provide structured learning experiences in these areas. Elements of this program complement and are linked with Personal Development/Health/Physical Education (PDHPE) studies.</p>
+				<br>
+
+				<h2>Health Recreational</h2>
+				<p class="text-justify">Staff and students participate in a range of sporting, art, music and other recreational activities each week. Students are involved in the planning of these activities and are encouraged to generalise healthy recreation skills into their out of school lives. Elements of this program complement and are linked with PDHPE, Art and Key Learning Area studies.</p>
+				<br>
+
+				<h2>Life Skills</h2>
+				<p class="text-justify">Food technology classes take place each week for all students, in which consumer and living skills such as shopping for food; safe storage of food; food preparation and catering are addressed.</p>
+				<br>
+
+				<h2>Community Participation</h2>
+				<p class="text-justify">Currently the school liaises with several government and community agencies including Department of Community Services, Department of Juvenile Justice, Adolescent Area Health Service at Prince of Wales Hospital, Ted Noffs Foundation, Come in Centre, Headspace and Area Police/Youth Liaison Officers.
+				<br>
+				<p class="text-justify">We have strong links within our community for access to local therapy services, for our work experience placements and for access to Randwick Library and Centennial Park. We continue to grow strong links within our community of schools.</p>
+			</div>
+		</div>
+	</div>
+	<!--about end here-->
+<!-- 
+	<div class="about-layer1">
+		<div class="container">
+			<div class="about-agile">
+				<h4>Duis aute irure dolor in reprehenderit </h4>
+				<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<p> </p>
+			</div>
+		</div>
+	</div>
+ -->
+
+	<!--team start here-->
+<!-- 
+	<div class="team">
+		<div class="container">
+			<div class="team-main">
+				  <div class="team-top">
+				  	<h3>Our Staff</h3>
+				  </div>
+	              <div class="team-bottom">
+	                <div class="col-md-3 agileinfo">
+	                  <div class="ih-item circle effect13 bottom_to_top"><a href="#">
+	                      <div class="img"><img src="{% static 'img/t1.jpg' %}" alt="img"></div>
+	                      <div class="info"> 
+	                        <div class="info-back">
+	                          <h3>Smith</h3>
+	                          <p>Description goes here</p>
+	                          
+
+	                        </div>
+	                      </div></a></div>
+	                  <div class="team-icons">		        	  
+				        	  <ul>
+				        	  	<li><a href="#" class="fa"> </a></li>
+				        	  	<li><a href="#" class="tw"> </a></li>
+				        	  	<li><a href="#" class="g"> </a></li>
+				        	  </ul>
+			             </div>
+	                </div>
+	                <div class="col-md-3 agileinfo">
+	                  <div class="ih-item circle effect13 bottom_to_top"><a href="#">
+	                      <div class="img"><img src="{% static 'img/t2.jpg' %}" alt="img"></div>
+	                      <div class="info">
+	                        <div class="info-back">
+	                          <h3>Daneal</h3>
+	                          <p>Description goes here</p>
+	                        </div>
+	                      </div></a></div>
+	                  <div class="team-icons">		        	  
+				        	  <ul>
+				        	  	<li><a href="#" class="fa"> </a></li>
+				        	  	<li><a href="#" class="tw"> </a></li>
+				        	  	<li><a href="#" class="g"> </a></li>
+				        	  </ul>
+			             </div>
+	                </div>
+	                <div class="col-md-3 agileinfo">
+	                  <div class="ih-item circle effect13 bottom_to_top"><a href="/">
+	                      <div class="img"><img src="{% static 'img/t3.jpg' %}" alt="img"></div>
+	                      <div class="info">
+	                        <div class="info-back">
+	                          <h3>Mac</h3>
+	                          <p>Description goes here</p>
+	                        </div>
+	                      </div></a></div>
+	                  <div class="team-icons">		        	  
+				        	  <ul>
+				        	  	<li><a href="#" class="fa"> </a></li>
+				        	  	<li><a href="#" class="tw"> </a></li>
+				        	  	<li><a href="#" class="g"> </a></li>
+				        	  </ul>
+			             </div>
+	                </div>
+	                <div class="col-md-3 agileinfo">
+	                  <div class="ih-item circle effect13 bottom_to_top"><a href="/">
+	                      <div class="img"><img src="{% static 'img/t4.jpg' %}" alt="img"></div>
+	                      <div class="info">
+	                        <div class="info-back">
+	                          <h3>John</h3>
+	                          <p>Description goes here</p>
+	                        </div>
+	                      </div></a></div>
+	                  <div class="team-icons">		        	  
+				        	  <ul>
+				        	  	<li><a href="#" class="fa"> </a></li>
+				        	  	<li><a href="#" class="tw"> </a></li>
+				        	  	<li><a href="#" class="g"> </a></li>
+				        	  </ul>
+			             </div>
+	                </div>
+	                
+	              </div>
+			</div>
+		</div>
+	</div>	
+ -->	
+	<!--team end here-->
+{% include 'footer.html' %}
+
+{% endblock %}
