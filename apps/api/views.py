@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework import views
 from rest_framework.response import Response
 from django.core import serializers
-from apps.tracking.models import BehaviourTracking, Student
+from apps.behaviour.models import BehaviourTracking, Student
 from pprint import pprint
 
 NOT_AUTHED = 'User is not authenticated'

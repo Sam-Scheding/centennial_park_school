@@ -33,10 +33,12 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'webapp-384830.pythonanywhere.com', '
 
 INSTALLED_APPS = [
     'apps.main',
-    'apps.gallery',
+    # 'apps.gallery',
     'apps.contact',
     'apps.staff',
-    'apps.tracking',
+    'apps.console',
+    'apps.behaviour',
+    # 'apps.wios',
     'apps.api',
     'apps.downloads',
     'rest_framework',
@@ -67,9 +69,10 @@ TEMPLATES = [
             'main/templates/',
             'gallery/templates/',            
             'contact/templates/',
+            'console/templates/',
+            'wios/templates/',
             'staff/templates/',
-            'tracking/',
-            'tracking/templates',
+            'behaviour/templates',
             os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
@@ -200,5 +203,5 @@ CLASSES = [('', ''), ('C1', 'C1'), ('C2', 'C2'), ('C3','C3'), ('C4','C4'), ('C5'
 WIO_TYPE = [('','--------'), ('System', 'System'), ('Instant', 'Instant')]
 STAFF_TITLES = [('Executive', 'Executive'), ('Teaching', 'Teaching'), ('Non-Teaching', 'Non-Teaching'), ('Other', 'Other')]
 
-LOGIN_REDIRECT_URL = '/tracking'
+LOGIN_REDIRECT_URL = '/console'
 LOGOUT_REDIRECT_URL = '/'

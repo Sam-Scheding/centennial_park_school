@@ -1,6 +1,6 @@
 {% extends 'tracking_base.html' %}
 {% load static %}
-{% block title %}Tracking{% endblock %}
+{% block title %}Console{% endblock %}
 
 {% block head %}
 	<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}" />
@@ -33,7 +33,7 @@
 			          <th><h4><a class="table_header_link" href="#">Add Students</a></h4></th>
 			        </tr>
 			        <tr>
-		                <form method="POST" action="/tracking/">
+		                <form method="POST" action="/console/students/add/">
 		                	{% csrf_token %}
 		                	{% for field in form%}
 		                		<td>{{ field }}</td>
@@ -54,10 +54,10 @@
 			          <td>{{ student.last_name }}</td>
 			          <td>{{ student.class_name }}</td>
 			          <td>{{ student.year }}</td>
-			          <td><form method="GET" action="/tracking/behaviour_tracking/{{ student.id }}">{% csrf_token %}<input type="submit" value="Behaviour Tracking"></form></td>
+			          <td><form method="GET" action="/tracking/behaviour/{{ student.id }}">{% csrf_token %}<input type="submit" value="Behaviour Tracking"></form></td>
 			          <!-- <td><form method="GET" action="/tracking/wios/{{ student.id }}">{% csrf_token %}<input type="submit" value="Add W/O"></form></td> -->
-			          <td><form action="/tracking/edit_student/{{ student.id }}" method="GET"><input type="submit" value="Edit Student"></form></td>
-			          <td><input type="submit" value="Disenrol" onclick="disenroll('{{ student.id }}', '{{ student.first_name }}', '{{ student.last_name }}')">
+			          <td><form action="/console/students/edit/{{ student.id }}" method="GET"><input type="submit" value="Edit Student"></form></td>
+			          <td><input type="submit" value="Disenrol" onclick="disenrol('{{ student.id }}', '{{ student.first_name }}', '{{ student.last_name }}')">
 			        </tr>
 			        {% endif %}
 			    {% endfor %}
@@ -84,17 +84,14 @@
 
 	<script type="text/javascript">
 		
-		function editStudent(student_id){
 
-		}
-
-		function disenroll(student_id, first_name, last_name) {
-			confirmation = confirm("Are you sure you want to remove " + first_name + " " + last_name + "?");
+		function disenrol(student_id, first_name, last_name) {
+			confirmation = confirm("Are you sure you want to remove " + first_name + " " + last_name + "? This will remove them from this list, however their data will remain in the database in case it is still needed.");
 			if(confirmation){
 
 			    var form = document.createElement("form");
 			    form.setAttribute("method", "POST");
-			    form.setAttribute("action", "disenroll/");
+			    form.setAttribute("action", "students/disenrol/" + student_id);
 
 	            var hiddenField = document.createElement("input");
     			hiddenField.setAttribute("type", "hidden");

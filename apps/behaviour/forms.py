@@ -3,11 +3,6 @@ from . import models
 from datetime import time
 
 
-class AddStudentForm(forms.ModelForm):
-
-    class Meta:
-        model = models.Student
-        exclude = ['enrolled']
 
 class StudentBehaviourTrackingForm(forms.ModelForm):
 
@@ -36,12 +31,4 @@ class StudentBehaviourTrackingForm(forms.ModelForm):
 
         model = models.BehaviourTracking
         exclude = ('student',)
-        
-class EditStudentForm(forms.ModelForm):
 
-
-    # TODO: Use this model form rather than manually creating it
-    class Meta:
-
-        model = models.Student
-        fields = '__all__'

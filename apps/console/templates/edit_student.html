@@ -19,6 +19,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
+			{% include 'tabs.html' with students='active' %}
 		    <table class="table sortable">
 		      <thead>
 		        <tr>
@@ -32,7 +33,7 @@
 		        </tr>
 		      </thead>
 		      <tbody>
-		      	<form method="POST" action="/tracking/edit_student/{{ student.id }}">		      		
+		      	<form method="POST" action="/console/students/edit/{{ student.id }}">		      		
 		      	{% csrf_token %}
 		      	{% for field in form %}
 		      		<td>{{ field }}</td>
