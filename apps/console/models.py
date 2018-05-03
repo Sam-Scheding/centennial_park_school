@@ -19,4 +19,4 @@ class Student(models.Model):
 
 	class Meta:
 		pass
-		# db_table = 'tracking_student'
+

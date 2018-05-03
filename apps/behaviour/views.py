@@ -11,12 +11,14 @@ class StudentTrackingView(generic.CreateView):
 
     def get_success_url(self, **kwargs):
 
-        return "/tracking/behaviour_tracking/{}".format(self.kwargs['student_id'])
+        return "/tracking/behaviour/{}?term={}".format(self.kwargs['student_id'], self.kwargs.get('term', 2))
 
     def get_context_data(self, **kwargs):
         context = super(StudentTrackingView, self).get_context_data(**kwargs)
         student = models.Student.objects.get(id=int(self.kwargs['student_id']))
+        active_term = 'term_{}'.format(self.request.GET.get('term'))
         context['student'] = student  # Student needs to be set so the API knows which student to load
+        context[active_term] = 'active'
         return context
 
     # Prob better to redirect to an update view if the data is already entered

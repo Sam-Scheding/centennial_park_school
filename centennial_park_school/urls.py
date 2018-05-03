@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-from apps.gallery import views as gallery_views
+# from apps.gallery import views as gallery_views
 from apps.contact import views as contact_views
 from apps.staff import views as staff_views
 

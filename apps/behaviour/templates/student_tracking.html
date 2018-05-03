@@ -37,7 +37,7 @@
 			    		if(!confirmed){  return; }
 		    		}
 					var form = $('#behaviour_tracking_form');				    
-					form.attr('action', '/tracking/behaviour_tracking/{{ student.id }}');
+					form.attr('action', '/tracking/behaviour/{{ student.id }}');
 					form.attr('method', 'POST');
 		    		form.submit();
 		    	}
@@ -130,6 +130,26 @@
 			      <tfoot>			      	
 			      </tfoot>
 			 	</table>
+
+			 	<!-- Term Tabs -->
+			 	<div>
+					<ul class="nav nav-tabs">
+					  <li class="nav-item {{ term_1 }}">
+					    <a class="nav-link" href="/tracking/behaviour/{{ student.id }}?term=1">Term 1</a>
+					  </li>
+					  <li class="nav-item {{ term_2 }}">
+					    <a class="nav-link" href="/tracking/behaviour/{{ student.id }}?term=2">Term 2</a>
+					  </li>
+					  <li class="nav-item {{ term_3 }}">
+					    <a class="nav-link" href="/tracking/behaviour/{{ student.id }}?term=3">Term 3</a>
+					  </li>
+					  <li class="nav-item {{ term_4 }}">
+					    <a class="nav-link" href="/tracking/behaviour/{{ student.id }}?term=4">Term 4</a>
+					  </li>
+					</ul>
+			 		<hr>
+			 	</div>
+
 			 	<div>{{ form.errors }}</div>
 			</div>
 		</div>
@@ -167,41 +187,6 @@
 				</div>
 			</div>
 		</div>		
-
-<!--
-		<div class="row">
-			<div id="student-average-points" class="col-md-12">
-				<h1><b>Average Attendance:</b></h1>
-				<div class="panel panel-default">
-				  <div class="panel-heading">
-				  	<div class="container-fluid">
-				  		<div class="row">			  		
-						  	<div class="col-md-2">Monday</div>
-						  	<div class="col-md-2">Tuesday</div>
-						  	<div class="col-md-2">Wednesday</div>
-						  	<div class="col-md-2">Thursday</div>
-						  	<div class="col-md-2">Friday</div>
-						  	<div class="col-md-2">Overall</div>
-						</div>
-				  	</div>
-				  </div>
- 				  <div class="panel-body">
-				  	<div class="container-fluid">
-				  		<div class="row">			  		
-						  	<div id="attendance-monday" class="col-md-2"></div>
-						  	<div id="attendance-tuesday" class="col-md-2"></div>
-						  	<div id="attendance-wednesday" class="col-md-2"></div>
-						  	<div id="attendance-thursday" class="col-md-2"></div>
-						  	<div id="attendance-friday" class="col-md-2"></div>
-						  	<div id="attendance-overall" class="col-md-2"></div>
-						</div>
-				  	</div>
-				  </div>
- 				</div>
-			</div>		
-		</div>		
-	</div>
- -->
 
 
 <script>

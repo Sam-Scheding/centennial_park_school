@@ -18,7 +18,8 @@ class StudentBehaviourTrackingAPIView(views.APIView):
 
         offset, day_num = 0, 0
         student_model = Student.objects.get(id=self.kwargs['student_id'])
-        behaviour_tracking_set = BehaviourTracking.objects.filter(student=student_model, year=datetime.now().year).order_by('week', 'term', 'year')
+        term = self.kwargs.get('term', 2)
+        behaviour_tracking_set = BehaviourTracking.objects.filter(student=student_model, year=datetime.now().year, term=term).order_by('week', 'term', 'year')
         student = {
             'name': student_model.first_name + ' ' + student_model.last_name,
             'points': [],

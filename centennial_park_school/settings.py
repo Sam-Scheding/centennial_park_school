@@ -33,12 +33,10 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'webapp-384830.pythonanywhere.com', '
 
 INSTALLED_APPS = [
     'apps.main',
-    # 'apps.gallery',
     'apps.contact',
     'apps.staff',
     'apps.console',
     'apps.behaviour',
-    # 'apps.wios',
     'apps.api',
     'apps.downloads',
     'rest_framework',
@@ -70,7 +68,6 @@ TEMPLATES = [
             'gallery/templates/',            
             'contact/templates/',
             'console/templates/',
-            'wios/templates/',
             'staff/templates/',
             'behaviour/templates',
             os.path.join(BASE_DIR, 'templates'),
@@ -97,7 +94,7 @@ WSGI_APPLICATION = 'centennial_park_school.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db', 'db.sqlite3'),
     }
 }
 
@@ -139,13 +136,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'cps_external', 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'main', 'static'),
-    os.path.join(BASE_DIR, 'tracking', 'static'),
+    os.path.join(BASE_DIR, 'staff', 'static'),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'cps_external', 'media')
 MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {

@@ -4,8 +4,14 @@
 <div class="agileits banner">
 	<div class="header-big">
 {% else %}
-<div class="agileits banner-small">
-	<div class="header">
+
+	{% if fixed %}
+		<div class="agileits banner-small" style="position: fixed; z-index: 3; width: 100%;">
+			<div class="header">
+	{% else %}
+		<div class="agileits banner-small">
+			<div class="header">
+	{% endif %}
 {% endif %}
 
 		<div class="container">

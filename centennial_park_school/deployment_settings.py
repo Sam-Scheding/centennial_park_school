@@ -138,8 +138,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, '..', 'cps_external', 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'main', 'static'),
-    os.path.join(BASE_DIR, 'tracking', 'static'),
+    os.path.join(BASE_DIR, 'apps', 'main', 'static'),
+    os.path.join(BASE_DIR, 'apps', 'staff', 'static'),
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'cps_external', 'media')
