@@ -159,8 +159,11 @@ CONTACT_EMAILS = [
     'centennial-s.school@det.nsw.edu.au',
 ]
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+EMAIL_HOST = "in-v3.mailjet.com"
+EMAIL_HOST_USER = "4973c25f516c04a4434a0b2c3375dca0"
+EMAIL_HOST_PASSWORD = 'c863b3b59c557cfade23c5d259807a1b'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 WEEK_CHOICES = []
 for r in range(1, 13):

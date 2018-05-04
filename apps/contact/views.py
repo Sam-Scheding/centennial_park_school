@@ -12,16 +12,15 @@ class ContactView(generic.FormView):
     success_url = '/contact/'
 
     def form_valid(self, form):
-        message = "{name} / {email} said: ".format(
-            name=form.cleaned_data.get('name'),
-            email=form.cleaned_data.get('email'))
 
-        message += "\n\n{0}".format(form.cleaned_data.get('message'))
+        name = "{} {}".format(form.cleaned_data.get('first_name'), form.cleaned_data.get('last_name'))
+        reply_to = form.cleaned_data.get('email')
+        message = "{} | {}\n\n{}".format(name, reply_to, form.cleaned_data.get('message'))
 
         send_mail(
             subject='School Website Contact Page',
             message=message,
-            from_email=form.cleaned_data.get('email'),
+            from_email='sam.scheding1@det.nsw.edu.au',
             recipient_list=settings.CONTACT_EMAILS,
         )
         return super(ContactView, self).form_valid(form)
