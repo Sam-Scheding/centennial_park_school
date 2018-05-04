@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.views import generic
+from django.conf import settings
 from . import models
 from . import forms
 
@@ -16,9 +17,11 @@ class StudentTrackingView(generic.CreateView):
     def get_context_data(self, **kwargs):
         context = super(StudentTrackingView, self).get_context_data(**kwargs)
         student = models.Student.objects.get(id=int(self.kwargs['student_id']))
-        active_term = 'term_{}'.format(self.request.GET.get('term'))
+        term = self.request.GET.get('term', settings.CURRENT_TERM)
+        active_term = 'term_{}'.format(term)
         context['student'] = student  # Student needs to be set so the API knows which student to load
         context[active_term] = 'active'
+        context['term'] = term
         return context
 
     # Prob better to redirect to an update view if the data is already entered
