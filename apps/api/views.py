@@ -8,6 +8,7 @@ from django.core import serializers
 from apps.behaviour.models import BehaviourTracking
 from apps.console.models import Student
 from pprint import pprint
+import json
 
 NOT_AUTHED = 'User is not authenticated'
 
@@ -74,3 +75,12 @@ class IsBehaviourTrackingUnique(views.APIView):
         return Response({'student': Student.objects.get(id=request.GET['student']).first_name, 'already_exists': exists, })
 
 
+class IsStudentUnique(views.APIView):
+
+    def get(self, request, *args, **kwargs):
+
+        if not request.user.is_authenticated:
+            return Response({'error': NOT_AUTHED})
+
+        exists = Student.objects.filter(enrolled=True, first_name__iexact=request.GET.get('first_name'), last_name__iexact=request.GET.get('last_name')).exists()
+        return Response({'exists': exists, })

@@ -10,6 +10,12 @@ class ContactView(generic.FormView):
     template_name = 'contact.html'
     form_class = ContactForm
     success_url = '/contact/'
+    # post_data = request.POST
+
+    def get_form_kwargs(self):
+        kwargs = super(ContactView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
 
     def form_valid(self, form):
 
@@ -17,6 +23,7 @@ class ContactView(generic.FormView):
         reply_to = form.cleaned_data.get('email')
         message = "{} | {}\n\n{}".format(name, reply_to, form.cleaned_data.get('message'))
 
+        
         send_mail(
             subject='School Website Contact Page',
             message=message,

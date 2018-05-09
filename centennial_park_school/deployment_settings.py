@@ -23,6 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'z5n2jndq2cm#bfqzig1e45+8q&)aw*ndk(h@j$ge0mz1=v!pc5'
+RECAPTCHA_SECRET_KEY = '6LdgLlgUAAAAACbur18uMDwaOzsv8n91_oa3xj-Z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -34,11 +35,12 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'webapp-384830.pythonanywhere.com', '
 
 INSTALLED_APPS = [
     'apps.main',
-    'apps.gallery',
     'apps.contact',
     'apps.staff',
-    'apps.tracking',
+    'apps.console',
+    'apps.behaviour',
     'apps.api',
+    'apps.downloads',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
 MIDDLEWARE = [
@@ -169,6 +172,8 @@ for r in range(1, 13):
     WEEK_CHOICES.append((r, r))
 
 TERM_CHOICES = [(1,1),(2,2),(3,3),(4,4)]
+TERMS = [('Term 1', 'Term 1'), ('Term 2', 'Term 2'), ('Term 3', 'Term 3'), ('Term 4', 'Term 4')]  # I'm not sure if this is still needed
+CURRENT_TERM = 2  # TODO: Figure a better way around this than hardcoding
 
 SCHOOL_YEARS = [(7,7), (8,8), (9,9), (10,10), (11,11), (12,12)]
 
@@ -197,7 +202,6 @@ YEAR_CHOICES = []  # Change to list comprehension and replace 2010 with datetime
 for r in range(2010, (datetime.datetime.now().year + 1)):
     YEAR_CHOICES.append((r, r))
 
-TERMS = [('Term 1', 'Term 1'), ('Term 2', 'Term 2'), ('Term 3', 'Term 3'), ('Term 4', 'Term 4')]
 CLASSES = [('', ''), ('C1', 'C1'), ('C2', 'C2'), ('C3','C3'), ('C4','C4'), ('C5','C5'), ('C6','C6')]
 WIO_TYPE = [('','--------'), ('System', 'System'), ('Instant', 'Instant')]
 STAFF_TITLES = [('Executive', 'Executive'), ('Teaching', 'Teaching'), ('Non-Teaching', 'Non-Teaching'), ('Other', 'Other')]

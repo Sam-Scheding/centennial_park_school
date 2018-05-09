@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.conf import settings
+from django.http import HttpResponseRedirect
 from . import models
 from . import forms
 
@@ -13,14 +14,26 @@ class ConsoleView(generic.TemplateView):
             return redirect('login')
 
         form = forms.AddStudentForm()
-        d = { 'classes': settings.CLASSES, 'students': models.Student.objects.all(), 'form':form }
+        d = { 'classes': settings.CLASSES, 'students': models.Student.objects.all(), 'add_student_form':form }
         return render(request, self.template_name, d)
 
+    # For some reason, AddStudentVeiw redirects here with POST
+    def post(self, request, *args, **kwargs):
+
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        form = forms.AddStudentForm()
+        d = { 'classes': settings.CLASSES, 'students': models.Student.objects.all(), 'add_student_form':form }
+        return render(request, self.template_name, d)
 
 class AddStudentView(generic.CreateView):
 
     form_class = forms.AddStudentForm
     success_url = '/console'
+
+    def form_invalid(self, form):    
+        return HttpResponseRedirect(self.success_url)
 
 class DisenrolStudentView(generic.View):
 
