@@ -5,35 +5,20 @@ from django.http import HttpResponseRedirect
 from . import models
 from . import forms
 
-class ConsoleView(generic.TemplateView):
+class ConsoleView(generic.CreateView):
 
     template_name = 'console.html'
-    def get(self, request, *args, **kwargs):
-
-        if not request.user.is_authenticated:
-            return redirect('login')
-
-        form = forms.AddStudentForm()
-        d = { 'classes': settings.CLASSES, 'students': models.Student.objects.all(), 'add_student_form':form }
-        return render(request, self.template_name, d)
-
-    # For some reason, AddStudentVeiw redirects here with POST
-    def post(self, request, *args, **kwargs):
-
-        if not request.user.is_authenticated:
-            return redirect('login')
-
-        form = forms.AddStudentForm()
-        d = { 'classes': settings.CLASSES, 'students': models.Student.objects.all(), 'add_student_form':form }
-        return render(request, self.template_name, d)
-
-class AddStudentView(generic.CreateView):
-
-    form_class = forms.AddStudentForm
     success_url = '/console'
+    model = models.Student
+    fields = ['first_name', 'last_name', 'class_name', 'year']
 
-    def form_invalid(self, form):    
-        return HttpResponseRedirect(self.success_url)
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        context['students'] = models.Student.objects.filter(enroled=True)
+        context['form'] = forms.AddStudentForm()
+        return context
+
 
 class DisenrolStudentView(generic.View):
 
@@ -44,7 +29,7 @@ class DisenrolStudentView(generic.View):
 
         student_id = request.POST.get('student_id')
         student = models.Student.objects.get(id=student_id)
-        student.enrolled = False
+        student.enroled = False
         student.save()
         return redirect('console')
 

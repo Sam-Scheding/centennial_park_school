@@ -35,20 +35,20 @@
 			        <tr>
 		                <form method="POST" id="add_student_form">
 		                	{% csrf_token %}
-		                	{% for field in add_student_form %}
+		                	{% for field in form %}
 		                		<td>{{ field }}</td>
 		                	{% endfor %}
 	                		<td></td>
 	                		<td></td>
 	                		<td></td>
-		                    <td><input type="submit" class="btn btn-default" onclick="addStudentIfUnique()" value="Add A Student"></td>
+		                    <td><input type="submit" class="btn btn-default" value="Add A Student"></td>
 		                </form>			        	
 			        </tr>
 			      </thead>
 			      <tbody>
 
 				{% for student in students %}
-					{% if student.enrolled %}
+					{% if student.enroled %}
 			        <tr>
 			          <td>{{ student.first_name }}</td>
 			          <td>{{ student.last_name }}</td>
@@ -66,13 +66,13 @@
 			      	<tr>
 		                <form method="POST" id="add_student_form">
 		                	{% csrf_token %}
-		                	{% for field in add_student_form %}
+		                	{% for field in form %}
 		                		<td>{{ field }}</td>
 		                	{% endfor %}
 	                		<td></td>
 	                		<td></td>
 	                		<td></td>
-		                    <td><input type="submit" class="btn btn-default" onclick="addStudentIfUnique()" value="Add A Student"></td>
+		                    <td><input type="submit" class="btn btn-default" value="Add A Student"></td>
 		                </form>			      		
 			      	</tr>
 			      </tfoot>
@@ -81,30 +81,7 @@
 			</div>
 		</div>
 	</div>
-
-	<script type="text/javascript">
-		function addStudentIfUnique() {
-			var form = $('#add_student_form');
-			var first_name = $('#id_first_name').val();
-			var last_name = $('#id_last_name').val();
-
-			$.ajax({
-		    	url: "/api/student/exists/?first_name=" + first_name + "&last_name=" + last_name,
-		    	method: "GET",
-		    	success: function(student){
-		    		console.log(student);
-		    		if(student['exists']){
-			    		confirmed = window.confirm("A student with that name already exists. Are you sure you want to add another?");
-		    		} else {
-						form.attr('action', "students/add/");
-			    		form.submit();
-		    		}
-		    	}
-		    	// error: function()
-			});
-		}
-			
-
+		
 		
 	</script>
 	<script type="text/javascript">
