@@ -18,12 +18,9 @@ class HomeView(generic.TemplateView):
         events = models.Event.objects.order_by('date').filter(date__range=(start_date, end_date))[0:3]
 
         # Get student testimonials
-        testimonials = models.Testimonial.objects.all()
+        # testimonials = models.Testimonial.objects.all()
 
-        return render(request, self.template_name, {
-            'events': events,
-            'testimonials': testimonials,
-        })
+        return render(request, self.template_name, {})
 
 
 class AboutView(generic.TemplateView):
@@ -76,4 +73,3 @@ class SubscribeView(generic.View):
         return render(request, self.template_name, {  # TODO: Change this to redirect, so I can delete template_name
             'subscribed': subscribed,
         })
-
