@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'apps.behaviour',
     'apps.api',
     'apps.downloads',
+    'apps.blog',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -65,7 +66,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             'main/templates/',
-            'gallery/templates/',            
+            'gallery/templates/',
             'contact/templates/',
             'console/templates/',
             'staff/templates/',
@@ -159,6 +160,8 @@ CONTACT_EMAILS = [
     'centennial-s.school@det.nsw.edu.au',
 ]
 
+FILE_CHARSET = "utf-8"
+
 EMAIL_HOST = "in-v3.mailjet.com"
 EMAIL_HOST_USER = "4973c25f516c04a4434a0b2c3375dca0"
 EMAIL_HOST_PASSWORD = 'c863b3b59c557cfade23c5d259807a1b'
@@ -174,19 +177,19 @@ TERM_CHOICES = [(1,1),(2,2),(3,3),(4,4)]
 SCHOOL_YEARS = [(7,7), (8,8), (9,9), (10,10), (11,11), (12,12)]
 
 SCHOOL_TIMES = [
-        (time(9, 00, 00), time(9, 00, 00)), (time(9, 30, 00), time(9, 30, 00)), 
-        (time(10, 00, 00), time(10, 00, 00)), (time(10, 30, 00), time(10, 30, 00)), 
-        (time(11, 00, 00), time(11, 00, 00)), (time(11, 30, 00), time(11, 30, 00)), 
-        (time(12, 00, 00), time(12, 00, 00)), (time(12, 30, 00), time(12, 30, 00)), 
-        (time(13, 00, 00), time(13, 00, 00)), (time(13, 30, 00), time(13, 30, 00)), 
+        (time(9, 00, 00), time(9, 00, 00)), (time(9, 30, 00), time(9, 30, 00)),
+        (time(10, 00, 00), time(10, 00, 00)), (time(10, 30, 00), time(10, 30, 00)),
+        (time(11, 00, 00), time(11, 00, 00)), (time(11, 30, 00), time(11, 30, 00)),
+        (time(12, 00, 00), time(12, 00, 00)), (time(12, 30, 00), time(12, 30, 00)),
+        (time(13, 00, 00), time(13, 00, 00)), (time(13, 30, 00), time(13, 30, 00)),
         (time(14, 00, 00), time(14, 00, 00)), (time(14, 30, 00), time(14, 30, 00)),
     ]
 
 ATTENDANCE_OPTIONS = [
-        # (0, '------'), 
-        (1, 'Attended'), 
-        (2, 'Absent (Explained)'), 
-        (3, 'Absent (Unexplained'), 
+        # (0, '------'),
+        (1, 'Attended'),
+        (2, 'Absent (Explained)'),
+        (3, 'Absent (Unexplained'),
         (4, 'Integrating'),
         (5, 'Suspended'),
     ]
