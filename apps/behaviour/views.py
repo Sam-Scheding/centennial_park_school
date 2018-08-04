@@ -1,4 +1,5 @@
 from django.http import HttpResponseRedirect
+from django.db.utils import IntegrityError
 from django.views import generic
 from django.conf import settings
 from . import models
@@ -29,15 +30,19 @@ class StudentTrackingView(generic.CreateView):
 
         # Delete duplicate behaviour tracking
         models.BehaviourTracking.objects.filter(
-            year=int(form.cleaned_data['year']), 
-            term=int(form.cleaned_data['term']), 
-            week=int(form.cleaned_data['week']), 
+            year=int(form.cleaned_data['year']),
+            term=int(form.cleaned_data['term']),
+            week=int(form.cleaned_data['week']),
             student=models.Student.objects.get(id=int(self.kwargs['student_id'])),
         ).delete()
-        new_form = form.save(commit=False) # Incomplete form because student is excluded
-        new_form.student_id = int(self.kwargs['student_id'])
-        new_form.save()
-        form.save_m2m()
+        try:
+            new_form = form.save(commit=False) # Incomplete form because student is excluded
+            new_form.student_id = int(self.kwargs['student_id'])
+            new_form.save()
+            form.save_m2m()
+        except IntegrityError as e:
+            print("CAUGHT THIS:", e)
+            pass
         return HttpResponseRedirect(self.get_success_url())
 
 
