@@ -192,6 +192,7 @@ ATTENDANCE_OPTIONS = [
         (3, 'Absent (Unexplained'),
         (4, 'Integrating'),
         (5, 'Suspended'),
+        (6, 'Public Holiday'),
     ]
 
 BT_YEAR_CHOICES = [(r, r) for r in range(datetime.datetime.now().year, (datetime.datetime.now().year + 5))]
