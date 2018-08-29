@@ -8,8 +8,8 @@ class Student(models.Model):
 	last_name = models.CharField(max_length=40)
 	class_name = models.CharField(max_length=10, choices=settings.CLASSES, default="C1")
 	year = models.IntegerField(choices=settings.SCHOOL_YEARS)
-	enrolled = models.BooleanField(default=False)
-	
+	enrolled = models.BooleanField(default=True)
+
 	@property
 	def full_name(self):
 		return "{} {}".format(self.first_name, self.last_name)
@@ -19,4 +19,3 @@ class Student(models.Model):
 
 	class Meta:
 		pass
-

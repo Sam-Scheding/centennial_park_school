@@ -23,7 +23,7 @@ class Newsletter(models.Model):
     class Meta:
 
         verbose_name = "Newsletter"
-        verbose_name_plural = "Newsletters"    
+        verbose_name_plural = "Newsletters"
 
 
 class ASR(models.Model):
@@ -44,7 +44,7 @@ class ASR(models.Model):
     class Meta:
 
         verbose_name = "Annual School Report"
-        verbose_name_plural = "Annual School Reports"    
+        verbose_name_plural = "Annual School Reports"
 
 
 class Event(models.Model):
@@ -75,7 +75,7 @@ class Event(models.Model):
 
 class Testimonial(models.Model):
 
-    name = models.CharField(max_length=128) 
+    name = models.CharField(max_length=128)
     text = models.TextField()
 
     class Meta:

@@ -22,4 +22,6 @@ urlpatterns = [
     url(r'^payments/', views.PaymentsView.as_view()),
     url(r'^publications/', views.PublicationsView.as_view()),
     url(r'^subscribe/', views.SubscribeView.as_view()),
+
+
 ]
