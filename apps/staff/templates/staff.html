@@ -1,4 +1,4 @@
-<!-- Stage- Bootstrap one page Event ticket booking theme 
+<!-- Stage- Bootstrap one page Event ticket booking theme
 Created by pixpalette.com - online design magazine -->
 {% extends 'base.html' %}
 {% load static %}
@@ -10,7 +10,7 @@ Created by pixpalette.com - online design magazine -->
     <!-- Bootstrap -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
-    
+
     <!-- fonts -->
     <link href='http://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900" rel="stylesheet">
@@ -27,7 +27,7 @@ Created by pixpalette.com - online design magazine -->
 
     <div class="container-fluid">
 		<div class="row">
-<!-- 
+<!--
         	<div class="col-sm-5 left-wrapper">
             	<div class="event-banner-wrapper">
 
@@ -37,29 +37,29 @@ Created by pixpalette.com - online design magazine -->
  -->
             <div class="col-sm-12 right-wrapper">
             	<div class="event-ticket-wrapper">
-                    
+
                     <div class="event-tab">
-                                
+
                   <!-- Tab panes -->
                   <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="buyTicket">
                     	<div class="row">
 
-                    {% if exec_staff %}
+                    {% if view.exec_staff %}
                         <h2>Executives</h2>
-                        {% for staff in exec_staff %}
+                        {% for staff in view.exec_staff %}
                         	<div class="col-md-4">
                             	<div class="ticketBox">
                                 	<div class="inactiveStatus"></div>
-                                    
                                     <div class="row">
- 			                       	<div class="col-xs-6">
-            							<div class="ticket-name">
+			                               	<div class="col-xs-6">
+                          							<div class="ticket-name">
                                         	{{ staff.first_name }}
-                                            <span>{{ staff.role }}</span>
+                                          <span>{{ staff.role }}</span>
                                         </div>
-            						</div>
+                          						</div>
                                     </div>
+                                    <div style="width:100%; height:200px; background-image: url('{{ MEDIA_URL }}{{ staff.image }}');"></div>
                                     <div class="ticket-description">
                                     	<p style="word-wrap: break-word;">{{ staff.blurb }}</p>
                                     </div>
@@ -71,13 +71,13 @@ Created by pixpalette.com - online design magazine -->
                     </div>
                     <div class="row">
 
-                    {% if teaching_staff %}
+                    {% if view.teaching_staff %}
                         <h2>Teachers</h2>
-                        {% for staff in teaching_staff %}
+                        {% for staff in view.teaching_staff %}
                             <div class="col-md-4">
                                 <div class="ticketBox">
                                     <div class="inactiveStatus"></div>
-                                    
+
                                     <div class="row">
                                     <div class="col-xs-6">
                                         <div class="ticket-name">
@@ -85,6 +85,7 @@ Created by pixpalette.com - online design magazine -->
                                             <span>{{ staff.role }}</span>
                                         </div>
                                     </div>
+                                    <div style="width:100%; height:200px; background-image: url('{{ MEDIA_URL }}{{ staff.image }}');"></div>
                                     </div>
                                     <div class="ticket-description">
                                         <p>{{ staff.blurb }}</p>
@@ -97,21 +98,22 @@ Created by pixpalette.com - online design magazine -->
                     </div>
                     <div class="row">
 
-                    {% if non_teaching_staff %}
+                    {% if view.non_teaching_staff %}
                         <h2>Support Staff:</h2>
-                        {% for staff in non_teaching_staff %}
+                        {% for staff in view.non_teaching_staff %}
                             <div class="col-md-4">
                                 <div class="ticketBox">
                                     <div class="inactiveStatus"></div>
-                                    
+
                                     <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="ticket-name">
-                                            {{ staff.first_name }}
-                                            <span>{{ staff.role }}</span>
-                                        </div>
+                                      <div class="col-xs-6">
+                                          <div class="ticket-name">
+                                              {{ staff.first_name }}
+                                              <span>{{ staff.role }}</span>
+                                          </div>
+                                      </div>
                                     </div>
-                                    </div>
+                                    <div style="width:100%; height:200px; background-image: url('{{ MEDIA_URL }}{{ staff.image }}');"></div>
                                     <div class="ticket-description">
                                         <p>{{ staff.blurb }}</p>
                                     </div>
@@ -123,13 +125,13 @@ Created by pixpalette.com - online design magazine -->
                     </div>
                     <div class="row">
 
-                    {% if other_staff %}
+                    {% if view.other_staff %}
                         <h2>Other:</h2>
-                        {% for staff in other_staff %}
+                        {% for staff in view.other_staff %}
                             <div class="col-md-4">
                                 <div class="ticketBox">
                                     <div class="inactiveStatus"></div>
-                                    
+
                                     <div class="row">
                                     <div class="col-xs-6">
                                         <div class="ticket-name">
@@ -137,7 +139,7 @@ Created by pixpalette.com - online design magazine -->
                                             <span>{{ staff.role }}</span>
                                         </div>
                                     </div>
-                                    </div>
+                                    <div style="width:100%; height:200px; background-image: url('{{ MEDIA_URL }}{{ staff.image }}');"></div>                                    </div>
                                     <div class="ticket-description">
                                         <p>{{ staff.blurb }}</p>
                                     </div>
@@ -149,14 +151,14 @@ Created by pixpalette.com - online design magazine -->
                         </div>
                     </div>
                   </div>
-                
+
                 </div>
-                                       
+
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

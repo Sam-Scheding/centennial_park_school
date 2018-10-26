@@ -1,23 +1,20 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
-from .import models
+from django.views import generic
+from apps.staff.models import StaffMembers
 
 
-class StaffView(TemplateView):
+class StaffView(generic.TemplateView):
 
     template_name = 'staff.html'
 
-    def get(self, request):
+    def exec_staff(self):
+        return StaffMembers.objects.filter(title='Executive')
 
-        exec_staff = models.StaffMembers.objects.filter(title='Executive')
-        teaching_staff = models.StaffMembers.objects.filter(title='Teaching')
-        non_teaching_staff = models.StaffMembers.objects.filter(title='Non-Teaching')
-        other_staff = models.StaffMembers.objects.filter(title='Other')
+    def teaching_staff(self):
+        return StaffMembers.objects.filter(title='Teaching')
 
-        return render(request, self.template_name, {
-            'exec_staff': exec_staff,
-            'teaching_staff': teaching_staff,
-            'non_teaching_staff': non_teaching_staff,
-            'other_staff': other_staff,
+    def non_teaching_staff(self):
+        return StaffMembers.objects.filter(title='Non-Teaching')
 
-        })
+    def other_staff(self):
+        return StaffMembers.objects.filter(title='Other')
