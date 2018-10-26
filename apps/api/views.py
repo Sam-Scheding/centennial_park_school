@@ -1,11 +1,14 @@
 from datetime import datetime
 from collections import defaultdict
+from django.conf import settings
 from django.shortcuts import render
 from rest_framework import views
 from rest_framework.response import Response
 from django.core import serializers
-from apps.behaviour.models import BehaviourTracking, Student
+from apps.behaviour.models import BehaviourTracking
+from apps.console.models import Student
 from pprint import pprint
+import json
 
 NOT_AUTHED = 'User is not authenticated'
 
@@ -17,8 +20,9 @@ class StudentBehaviourTrackingAPIView(views.APIView):
             return Response({'error': NOT_AUTHED})
 
         offset, day_num = 0, 0
-        student_model = Student.objects.get(id=self.kwargs['student_id'])
-        term = self.kwargs.get('term', 2)
+        student_model = Student.objects.get(id=kwargs['student_id'])
+        term = self.request.GET.get('term')
+
         behaviour_tracking_set = BehaviourTracking.objects.filter(student=student_model, year=datetime.now().year, term=term).order_by('week', 'term', 'year')
         student = {
             'name': student_model.first_name + ' ' + student_model.last_name,
@@ -52,7 +56,7 @@ class StudentBehaviourTrackingAPIView(views.APIView):
         student['average_wednesday_points'] = average_points['wednesday'] / weekday
         student['average_thursday_points'] = average_points['thursday'] / weekday
         student['average_friday_points'] = average_points['friday'] / weekday
-
+        print(student)
         return Response(student)
 
 class IsBehaviourTrackingUnique(views.APIView):
@@ -71,3 +75,12 @@ class IsBehaviourTrackingUnique(views.APIView):
         return Response({'student': Student.objects.get(id=request.GET['student']).first_name, 'already_exists': exists, })
 
 
+class IsStudentUnique(views.APIView):
+
+    def get(self, request, *args, **kwargs):
+
+        if not request.user.is_authenticated:
+            return Response({'error': NOT_AUTHED})
+
+        exists = Student.objects.filter(enrolled=True, first_name__iexact=request.GET.get('first_name'), last_name__iexact=request.GET.get('last_name')).exists()
+        return Response({'exists': exists, })

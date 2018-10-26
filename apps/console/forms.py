@@ -5,7 +5,7 @@ class AddStudentForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        exclude = ['enrolled']
+        exclude = ['enroled']
         
 class EditStudentForm(forms.ModelForm):
 

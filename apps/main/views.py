@@ -49,6 +49,7 @@ class PublicationsView(generic.TemplateView):
 class PaymentsView(generic.View):
 
     url = 'https://quickweb.westpac.com.au/OnlinePaymentServlet?cd_community=DETSQW&cd_supplier_business=5516&cd_currency=AUD&headerBoxColour=%2339b7ff&headerBackgroundColour=%2339b7ff&navigationBarColour=%23ffffff&navigationBarBackgroundColour=%2339b7ff&pageBackgroundColour=%2339b7ff&schoolNameFontColour=%23000000&schoolMottoFontColour=%23000000&schoolNameFontSize=33px&cancelURL=http://www.centennial-s.schools.nsw.edu.au/'
+    url = 'https://quickweb.westpac.com.au/OnlinePaymentServlet?cd_community=DETSQW&cd_supplier_business=5516&cd_currency=AUD&headerBoxColour=%2339b7ff&headerBackgroundColour=%2339b7ff&navigationBarColour=%23ffffff&navigationBarBackgroundColour=%2339b7ff&pageBackgroundColour=%2339b7ff&schoolNameFontColour=%23000000&schoolMottoFontColour=%23000000&schoolNameFontSize=33px'
 
     def get(self, request):
         return redirect(self.url)

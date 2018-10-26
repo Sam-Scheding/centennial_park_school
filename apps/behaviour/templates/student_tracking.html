@@ -27,7 +27,7 @@
 				'week': $('#id_week').val(),
 			};
 			$.ajax({
-		    	url: "/api/behaviour_tracking/is_unique", 
+		    	url: "/api/behaviour/is_unique", 
 		    	method: "GET",
 		    	dataType: "json",
 		    	data: form_data,
@@ -194,7 +194,7 @@
 	$(document).ready(function(){
 
 	    $.ajax({
-	    	url: "/api/behaviour_tracking/{{ student.id }}", 
+	    	url: "/api/behaviour/{{ student.id }}?term={{ term }}", 
 	    	method: "GET",
 	    	dataType: "json",
 	    	success: function(student){
