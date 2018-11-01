@@ -2,23 +2,19 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from . import models
-from . import forms
+from django.urls import reverse_lazy
+from apps.console.models import Student
+from apps.console import forms
 
 class ConsoleView(generic.CreateView):
 
     template_name = 'console.html'
-    success_url = '/console'
-    model = models.Student
+    success_url = reverse_lazy('students:overview')
+    model = Student
     fields = ['first_name', 'last_name', 'class_name', 'year']
 
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super().get_context_data(**kwargs)
-        context['students'] = models.Student.objects.filter(enroled=True)
-        context['form'] = forms.AddStudentForm()
-        return context
-
+    def students(self):
+        return Student.objects.filter(enroled=True)
 
 class DisenrolStudentView(generic.View):
 
@@ -28,15 +24,15 @@ class DisenrolStudentView(generic.View):
             return redirect('login')
 
         student_id = request.POST.get('student_id')
-        student = models.Student.objects.get(id=student_id)
+        student = Student.objects.get(id=student_id)
         student.enroled = False
         student.save()
-        return redirect('console')
+        return redirect('students:overview')
 
 
 class EditStudentView(generic.UpdateView):
 
     template_name = 'edit_student.html'
-    model = models.Student
+    model =  Student
     form_class = forms.EditStudentForm
-    success_url = '/console'
+    success_url = reverse_lazy('students:overview')

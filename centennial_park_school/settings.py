@@ -143,7 +143,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'staff', 'static'),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'cps_external', 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
@@ -175,6 +175,7 @@ for r in range(1, 13):
 TERM_CHOICES = [(1,1),(2,2),(3,3),(4,4)]
 
 SCHOOL_YEARS = [(7,7), (8,8), (9,9), (10,10), (11,11), (12,12)]
+CURRENT_TERM = 4  # TODO: Figure a better way around this than hardcoding
 
 SCHOOL_TIMES = [
         (time(9, 00, 00), time(9, 00, 00)), (time(9, 30, 00), time(9, 30, 00)),

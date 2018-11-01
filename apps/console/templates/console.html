@@ -26,7 +26,7 @@
 			          <th><h4><a class="table_header_link" href="#">Last Name</a></h4></th>
 			          <th><h4><a class="table_header_link" href="#">Class</a></h4></th>
 			          <th><h4><a class="table_header_link" href="#">Year</a></h4></th>
-			          <th><h4><a class="table_header_link" href="#">Behaviour Tracking</a></h4></th>			          
+			          <th><h4><a class="table_header_link" href="#">Behaviour Tracking</a></h4></th>
 			          <!-- <th><h4><a class="table_header_link" href="#">Work It Outs</a></h4></th>			           -->
 			          <th><h4><a class="table_header_link" href="#">Edit Student</a></h4></th>
 			          <th><h4><a class="table_header_link" href="#">Disenroll</a></h4></th>
@@ -42,12 +42,12 @@
 	                		<td></td>
 	                		<td></td>
 		                    <td><input type="submit" class="btn btn-default" value="Add A Student"></td>
-		                </form>			        	
+		                </form>
 			        </tr>
 			      </thead>
 			      <tbody>
 
-				{% for student in students %}
+				{% for student in view.students %}
 					{% if student.enroled %}
 			        <tr>
 			          <td>{{ student.first_name }}</td>
@@ -73,7 +73,7 @@
 	                		<td></td>
 	                		<td></td>
 		                    <td><input type="submit" class="btn btn-default" value="Add A Student"></td>
-		                </form>			      		
+		                </form>
 			      	</tr>
 			      </tfoot>
 			      </form>
@@ -81,11 +81,11 @@
 			</div>
 		</div>
 	</div>
-		
-		
+
+
 	</script>
 	<script type="text/javascript">
-		
+
 
 		function disenrol(student_id, first_name, last_name) {
 			confirmation = confirm("Are you sure you want to remove " + first_name + " " + last_name + "? This will remove them from this list, however their data will remain in the database in case it is still needed.");
@@ -113,6 +113,6 @@
 	</script>
 {% else %}
 	You are not logged in, log in <a href="/accounts/login">here</a>
-{% endif %}	
+{% endif %}
 
 {% endblock %}

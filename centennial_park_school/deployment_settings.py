@@ -173,7 +173,7 @@ for r in range(1, 13):
 
 TERM_CHOICES = [(1,1),(2,2),(3,3),(4,4)]
 TERMS = [('Term 1', 'Term 1'), ('Term 2', 'Term 2'), ('Term 3', 'Term 3'), ('Term 4', 'Term 4')]  # I'm not sure if this is still needed
-CURRENT_TERM = 2  # TODO: Figure a better way around this than hardcoding
+CURRENT_TERM = 4  # TODO: Figure a better way around this than hardcoding
 
 SCHOOL_YEARS = [(7,7), (8,8), (9,9), (10,10), (11,11), (12,12)]
 
