@@ -20,8 +20,14 @@ class StudentBehaviourTrackingAPIView(views.APIView):
             return Response({'error': NOT_AUTHED})
 
         offset, day_num = 0, 0
-        student_model = Student.objects.get(id=kwargs['student_id'])
-        term = self.request.GET.get('term')
+        try:
+            student_id = kwargs.get('student_id', None)
+            student_model = Student.objects.get(id=student_id)
+        except ValueError as e:
+            print("Tried to get student {}, but failed".format(student_id))
+            return Response("")
+            
+        term = self.request.GET.get('term', settings.CURRENT_TERM)
 
         behaviour_tracking_set = BehaviourTracking.objects.filter(student=student_model, year=datetime.now().year, term=term).order_by('week', 'term', 'year')
         student = {
@@ -32,12 +38,12 @@ class StudentBehaviourTrackingAPIView(views.APIView):
 
         average_points = defaultdict(int)
 
-        # TODO: numpy can probably do this in 2 lines 
+        # TODO: numpy can probably do this in 2 lines
         for bt in behaviour_tracking_set:
             day_num = (bt.week - 1) * 5
             tooltip = "B1: {}\nB2: {}".format(bt.b1, bt.b2)
             student['points'] += [
-                [day_num, bt.monday_points, tooltip], 
+                [day_num, bt.monday_points, tooltip],
                 [day_num + 1, bt.tuesday_points, tooltip],
                 [day_num + 2, bt.wednesday_points, tooltip],
                 [day_num + 3, bt.thursday_points, tooltip],
@@ -66,9 +72,9 @@ class IsBehaviourTrackingUnique(views.APIView):
         if not request.user.is_authenticated:
             return Response({'error': NOT_AUTHED})
         behaviour_tracking = {
-            'student': Student.objects.get(id=int(request.GET['student'])), 
-            'year': int(request.GET['year']), 
-            'week': int(request.GET['week']), 
+            'student': Student.objects.get(id=int(request.GET['student'])),
+            'year': int(request.GET['year']),
+            'week': int(request.GET['week']),
             'term': int(request.GET['term']),
         }
         exists = BehaviourTracking.objects.filter(**behaviour_tracking).exists()

@@ -39,4 +39,3 @@ class BehaviourTracking(models.Model):
 
 	def __str__(self):
 		return "{}: {} - term: {}, week: {}".format(self.student, self.year, self.term, self.week)
-

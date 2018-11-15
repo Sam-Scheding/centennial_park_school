@@ -15,7 +15,7 @@ class ContactForm(forms.Form):
 
     def clean(self):
 
-        ca = self.request.POST["g-recaptcha-response"]
+        ca = self.request.POST.get("g-recaptcha-response", "")
         url = "https://www.google.com/recaptcha/api/siteverify"
         params = {
             'secret': settings.RECAPTCHA_SECRET_KEY,

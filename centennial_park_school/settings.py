@@ -176,6 +176,7 @@ TERM_CHOICES = [(1,1),(2,2),(3,3),(4,4)]
 
 SCHOOL_YEARS = [(7,7), (8,8), (9,9), (10,10), (11,11), (12,12)]
 CURRENT_TERM = 4  # TODO: Figure a better way around this than hardcoding
+CURRENT_YEAR = datetime.datetime.now().year
 
 SCHOOL_TIMES = [
         (time(9, 00, 00), time(9, 00, 00)), (time(9, 30, 00), time(9, 30, 00)),
@@ -196,11 +197,11 @@ ATTENDANCE_OPTIONS = [
         (6, 'Public Holiday'),
     ]
 
-BT_YEAR_CHOICES = [(r, r) for r in range(datetime.datetime.now().year, (datetime.datetime.now().year + 5))]
+BT_YEAR_CHOICES = [(r, r) for r in range(CURRENT_YEAR, CURRENT_YEAR + 5)]
 
 WEEKDAYS = [('Monday', 'Monday'),('Tuesday','Tuesday'),('Wendesday','Wendesday'),('Thursday','Thursday'),('Friday','Friday')]
 YEAR_CHOICES = []  # Change to list comprehension and replace 2010 with datetime.datetime.now().year - 10
-for r in range(2010, (datetime.datetime.now().year + 1)):
+for r in range(2010, (CURRENT_YEAR + 1)):
     YEAR_CHOICES.append((r, r))
 
 TERMS = [('Term 1', 'Term 1'), ('Term 2', 'Term 2'), ('Term 3', 'Term 3'), ('Term 4', 'Term 4')]

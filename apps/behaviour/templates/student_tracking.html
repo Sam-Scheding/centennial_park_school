@@ -1,6 +1,6 @@
 {% extends 'tracking_base.html' %}
 {% load static %}
-{% block title %}{{ student.full_name }}{% endblock %}
+{% block title %}{{ view.student.full_name }}{% endblock %}
 {% block head %}
 
 	<link rel="stylesheet" type="text/css" href="{% static '/admin/css/base.css' %}" />
@@ -16,9 +16,9 @@
 		}
 		function submitIfUnique(){
 
-			if(!validForm()){ 
+			if(!validForm()){
 				alert("Missing required field");
-				return; 
+				return;
 			}
 			var form_data = {
 				'student': {{ student.id }},
@@ -27,7 +27,7 @@
 				'week': $('#id_week').val(),
 			};
 			$.ajax({
-		    	url: "/api/behaviour/is_unique", 
+		    	url: "/api/behaviour/is_unique",
 		    	method: "GET",
 		    	dataType: "json",
 		    	data: form_data,
@@ -36,8 +36,8 @@
 			    		confirmed = window.confirm("The data for term " + form_data['term'] + " week " + form_data['week'] + ", " + form_data['year'] + " has already been entered for " + behaviour_tracking['student'] + ". Are you sure you want to overwrite this?");
 			    		if(!confirmed){  return; }
 		    		}
-					var form = $('#behaviour_tracking_form');				    
-					form.attr('action', '/tracking/behaviour/{{ student.id }}');
+					var form = $('#behaviour_tracking_form');
+					form.attr('action', '/tracking/behaviour/{{ view.student.id }}');
 					form.attr('method', 'POST');
 		    		form.submit();
 		    	}
@@ -59,10 +59,9 @@
 				{% include 'tabs.html' with behaviour_tracking='active' %}
 				<br>
 				<!-- <center> -->
-					<h1 style="font-size: 25pt;"><b>{{ student.full_name }}</b></h1>
+					<h1 style="font-size: 25pt;"><b>{{ view.student.full_name }}</b></h1>
 				<!-- </center> -->
-		      	<form id="behaviour_tracking_form">{% csrf_token %}</form>
-			    <table class="table"> 
+			    <table class="table">
 			      <thead>
 			        <tr>
 			          <th><h4>Week</h4></th>
@@ -84,9 +83,9 @@
 			    </table>
 			    <br>
 			    <table class="table">
-			    	<thead>		    		
+			    	<thead>
 				      	<tr>
-				          <th></th>				          
+				          <th></th>
 				          <th><h4>Monday</h4></th>
 				          <th><h4>Tuesday</h4></th>
 				          <th><h4>Wednesday</h4></th>
@@ -122,30 +121,36 @@
 			      		<td></td>
 			      		<td></td>
 			      		<td></td>
-			      		<td><input type="hidden" name="student" value="{{ student }}"></td>
-			      		<td>{{ form.student }}</td>
-	                    <td><input type="button" class="btn btn-default" onclick="submitIfUnique()" value="Add Data" style="width: 190px;"></td>
+			      		<td><input type="hidden" name="student" value="{{ view.student }}"></td>
+								<td></td>
+			      		<td>
+									<form id="behaviour_tracking_form" action="/tracking/behaviour/{{ view.student.id }}" method="POST">
+										{% csrf_token %}
+										{{ form.student }}
+										<input type="submit" class="btn btn-default" value="Add Data" style="width: 190px;">
+									</form>
+
+								</td>
 			      	</tr>
 			      </tbody>
-			      <tfoot>			      	
+			      <tfoot>
 			      </tfoot>
 			 	</table>
 
 			 	<!-- Term Tabs -->
 			 	<div>
 					<ul class="nav nav-tabs">
-					  <li class="nav-item {{ term_1 }}">
-					    <a class="nav-link" href="/tracking/behaviour/{{ student.id }}?term=1">Term 1</a>
-					  </li>
-					  <li class="nav-item {{ term_2 }}">
-					    <a class="nav-link" href="/tracking/behaviour/{{ student.id }}?term=2">Term 2</a>
-					  </li>
-					  <li class="nav-item {{ term_3 }}">
-					    <a class="nav-link" href="/tracking/behaviour/{{ student.id }}?term=3">Term 3</a>
-					  </li>
-					  <li class="nav-item {{ term_4 }}">
-					    <a class="nav-link" href="/tracking/behaviour/{{ student.id }}?term=4">Term 4</a>
-					  </li>
+					{% for term in "1234" %}
+							{% if term == view.current_term %}
+								<li class="nav-item active">
+							    <a class="nav-link" href="/tracking/behaviour/{{ view.student.id }}?term={{ term }}">Term {{ term }}</a>
+							  </li>
+							{% else %}
+								<li class="nav-item">
+							    <a class="nav-link" href="/tracking/behaviour/{{ view.student.id }}?term={{ term }}">Term {{ term }}</a>
+							  </li>
+							{% endif %}
+					{% endfor %}
 					</ul>
 			 		<hr>
 			 	</div>
@@ -155,14 +160,14 @@
 		</div>
 	</div>
 	<div id="student-graph" class="col-md-12"></div>
-	<div class="container-fluid"> 
+	<div class="container-fluid">
 		<div class="row">
 			<div id="student-average-points" class="col-md-12">
 				<h1><b>Average Points:</b></h1>
 				<div class="panel panel-default">
 				  <div class="panel-heading">
 				  	<div class="container-fluid">
-				  		<div class="row">			  		
+				  		<div class="row">
 						  	<div class="col-md-2">Monday</div>
 						  	<div class="col-md-2">Tuesday</div>
 						  	<div class="col-md-2">Wednesday</div>
@@ -174,7 +179,7 @@
 				  </div>
 				  <div class="panel-body">
 				  	<div class="container-fluid">
-				  		<div class="row">			  		
+				  		<div class="row">
 						  	<div id="points-monday" class="col-md-2"></div>
 						  	<div id="points-tuesday" class="col-md-2"></div>
 						  	<div id="points-wednesday" class="col-md-2"></div>
@@ -186,7 +191,7 @@
 				  </div>
 				</div>
 			</div>
-		</div>		
+		</div>
 
 
 <script>
@@ -194,7 +199,7 @@
 	$(document).ready(function(){
 
 	    $.ajax({
-	    	url: "/api/behaviour/{{ student.id }}?term={{ term }}", 
+	    	url: "/api/behaviour/{{ view.student.id }}?term={{ view.current_term }}",
 	    	method: "GET",
 	    	dataType: "json",
 	    	success: function(student){
@@ -254,7 +259,7 @@
 		        },
 		        vAxis: {
 		        	title: 'Score',
-					viewWindow: { max:100, min:0, },          
+					viewWindow: { max:100, min:0, },
 					gridlines: { count: 11, }
 		        },
 			    trendlines: { 0: {} },
@@ -271,5 +276,5 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 {% else %}
 	You are not logged in, log in <a href="/accounts/login">here</a>
-{% endif %}	
+{% endif %}
 {% endblock %}

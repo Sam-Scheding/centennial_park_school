@@ -6,10 +6,12 @@ from datetime import time
 
 class StudentBehaviourTrackingForm(forms.ModelForm):
 
-    def __init__(self, active_student=None, *args, **kwargs):   
+    def __init__(self, active_student=None, *args, **kwargs):
         super(StudentBehaviourTrackingForm, self ).__init__(*args, **kwargs)
         points_dict = {'class': 'weekday_points', 'min': 0, 'max': 100 }
         arrived_dict = { 'class': 'not_required' }
+
+
         for field in self.fields.values():
             field.widget.attrs['form'] = 'behaviour_tracking_form'
             field.widget.attrs['class'] = 'form_field'
@@ -26,9 +28,12 @@ class StudentBehaviourTrackingForm(forms.ModelForm):
         self.fields['thursday_arrived'].widget.attrs.update(arrived_dict)
         self.fields['friday_arrived'].widget.attrs.update(arrived_dict)
 
+        # Remove ------ from choices
+        self.fields['year'].choices = self.fields['year'].choices[1:]
+        self.fields['term'].choices = self.fields['term'].choices[1:]
+
 
     class Meta:
 
         model = models.BehaviourTracking
         exclude = ('student',)
-
