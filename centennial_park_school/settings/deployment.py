@@ -15,21 +15,17 @@ import datetime
 from datetime import time
 from .base import *
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'z5n2jndq2cm#bfqzig1e45+8q&)aw*ndk(h@j$ge0mz1=v!pc5'
+SECRET_KEY = "$o^(5t%k8%a&0a05_6z^kc_)w^y=o+c*c0p)t9r5!h&lq2a-xp"
 RECAPTCHA_SECRET_KEY = '6LdgLlgUAAAAACbur18uMDwaOzsv8n91_oa3xj-Z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = += ['webapp-384830.pythonanywhere.com', 'www.centennialparkschool.nsw.edu.au']
+ALLOWED_HOSTS += ['webapp-384830.pythonanywhere.com', 'www.centennialparkschool.nsw.edu.au']
 
 
 # Application definition
@@ -99,6 +95,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, '..', 'cps_external', 'deployment_db.sqlite3'),
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
