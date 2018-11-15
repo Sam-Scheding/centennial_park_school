@@ -13,9 +13,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import datetime
 from datetime import time
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '../')
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,10 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'z5n2jndq2cm#bfqzig1e45+8q&)aw*ndk(h@j$ge0mz1=v!pc5'
-RECAPTCHA_SECRET_KEY = '6LdgLlgUAAAAACbur18uMDwaOzsv8n91_oa3xj-Z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'webapp-384830.pythonanywhere.com', 'www.centennialparkschool.nsw.edu.au', 'www.centennialparkschool.nsw.edu.au']
 
@@ -41,6 +39,7 @@ INSTALLED_APPS = [
     'apps.behaviour',
     'apps.api',
     'apps.downloads',
+    'apps.blog',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,7 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
 ]
 
 MIDDLEWARE = [
@@ -63,6 +61,15 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'centennial_park_school.urls'
 
+
+REST_FRAMEWORK = {
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -70,9 +77,9 @@ TEMPLATES = [
             'main/templates/',
             'gallery/templates/',
             'contact/templates/',
+            'console/templates/',
             'staff/templates/',
-            'tracking/',
-            'tracking/templates',
+            'behaviour/templates',
             os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
@@ -91,15 +98,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'centennial_park_school.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '..', 'cps_external', 'deployment_db.sqlite3'),
-    }
-}
 
 
 # Password validation
@@ -135,47 +134,15 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '..', 'cps_external', 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'apps', 'main', 'static'),
-    os.path.join(BASE_DIR, 'apps', 'staff', 'static'),
-]
-
-MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'cps_external', 'media')
-MEDIA_URL = '/media/'
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    )
-}
-
-CONTACT_EMAILS = [
-    'sam.scheding1@det.nsw.edu.au',
-    'samscheding@gmail.com',
-    'centennial-s.school@det.nsw.edu.au',
-]
-
-EMAIL_HOST = "in-v3.mailjet.com"
-EMAIL_HOST_USER = "4973c25f516c04a4434a0b2c3375dca0"
-EMAIL_HOST_PASSWORD = 'c863b3b59c557cfade23c5d259807a1b'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
 WEEK_CHOICES = []
 for r in range(1, 13):
     WEEK_CHOICES.append((r, r))
 
 TERM_CHOICES = [(1,1),(2,2),(3,3),(4,4)]
-TERMS = [('Term 1', 'Term 1'), ('Term 2', 'Term 2'), ('Term 3', 'Term 3'), ('Term 4', 'Term 4')]  # I'm not sure if this is still needed
-CURRENT_TERM = 4  # TODO: Figure a better way around this than hardcoding
 
 SCHOOL_YEARS = [(7,7), (8,8), (9,9), (10,10), (11,11), (12,12)]
+CURRENT_TERM = 4  # TODO: Figure a better way around this than hardcoding
+CURRENT_YEAR = datetime.datetime.now().year
 
 SCHOOL_TIMES = [
         (time(9, 00, 00), time(9, 00, 00)), (time(9, 30, 00), time(9, 30, 00)),
@@ -196,13 +163,14 @@ ATTENDANCE_OPTIONS = [
         (6, 'Public Holiday'),
     ]
 
-BT_YEAR_CHOICES = [(r, r) for r in range(datetime.datetime.now().year, (datetime.datetime.now().year + 5))]
+BT_YEAR_CHOICES = [(r, r) for r in range(CURRENT_YEAR, CURRENT_YEAR + 5)]
 
 WEEKDAYS = [('Monday', 'Monday'),('Tuesday','Tuesday'),('Wendesday','Wendesday'),('Thursday','Thursday'),('Friday','Friday')]
 YEAR_CHOICES = []  # Change to list comprehension and replace 2010 with datetime.datetime.now().year - 10
-for r in range(2010, (datetime.datetime.now().year + 1)):
+for r in range(2010, (CURRENT_YEAR + 1)):
     YEAR_CHOICES.append((r, r))
 
+TERMS = [('Term 1', 'Term 1'), ('Term 2', 'Term 2'), ('Term 3', 'Term 3'), ('Term 4', 'Term 4')]
 CLASSES = [('', ''), ('C1', 'C1'), ('C2', 'C2'), ('C3','C3'), ('C4','C4'), ('C5','C5'), ('C6','C6')]
 WIO_TYPE = [('','--------'), ('System', 'System'), ('Instant', 'Instant')]
 STAFF_TITLES = [('Executive', 'Executive'), ('Teaching', 'Teaching'), ('Non-Teaching', 'Non-Teaching'), ('Other', 'Other')]
