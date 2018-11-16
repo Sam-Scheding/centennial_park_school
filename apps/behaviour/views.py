@@ -2,6 +2,8 @@ from django.http import HttpResponseRedirect
 from django.db.utils import IntegrityError
 from django.views import generic
 from django.conf import settings
+from django.urls import reverse_lazy
+from django.shortcuts import redirect
 from . import models
 from . import forms
 
@@ -31,8 +33,8 @@ class StudentTrackingView(generic.CreateView):
             form.save_m2m()
         except Exception as e:
             print("CAUGHT THIS:", e)
-            pass
-        return HttpResponseRedirect(self.get_success_url())
+
+        return redirect(self.get_success_url())
 
     # Student needs to be set so the API knows which student to load
     @property
