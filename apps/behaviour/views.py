@@ -34,7 +34,7 @@ class StudentTrackingView(generic.CreateView):
         except Exception as e:
             print("CAUGHT THIS:", e)
 
-        return redirect(self.get_success_url())
+        return super().form_valid(form)
 
     # Student needs to be set so the API knows which student to load
     @property
