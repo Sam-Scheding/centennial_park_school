@@ -33,7 +33,8 @@ class StudentTrackingView(generic.CreateView):
             form.save_m2m()
         except Exception as e:
             print("CAUGHT THIS:", e)
-        print("HERE:", form.cleaned_data)
+
+        
         return super().form_valid(form)
 
     # Student needs to be set so the API knows which student to load
