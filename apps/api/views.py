@@ -26,7 +26,7 @@ class StudentBehaviourTrackingAPIView(views.APIView):
         except ValueError as e:
             print("Tried to get student {}, but failed".format(student_id))
             return Response("")
-            
+
         term = self.request.GET.get('term', settings.CURRENT_TERM)
 
         behaviour_tracking_set = BehaviourTracking.objects.filter(student=student_model, year=datetime.now().year, term=term).order_by('week', 'term', 'year')
@@ -62,7 +62,7 @@ class StudentBehaviourTrackingAPIView(views.APIView):
         student['average_wednesday_points'] = average_points['wednesday'] / weekday
         student['average_thursday_points'] = average_points['thursday'] / weekday
         student['average_friday_points'] = average_points['friday'] / weekday
-        print(student)
+        # print(student)
         return Response(student)
 
 class IsBehaviourTrackingUnique(views.APIView):

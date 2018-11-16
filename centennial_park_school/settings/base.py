@@ -145,12 +145,12 @@ CURRENT_TERM = 4  # TODO: Figure a better way around this than hardcoding
 CURRENT_YEAR = datetime.datetime.now().year
 
 SCHOOL_TIMES = [
-        (time(9, 00, 00), time(9, 00, 00)), (time(9, 30, 00), time(9, 30, 00)),
-        (time(10, 00, 00), time(10, 00, 00)), (time(10, 30, 00), time(10, 30, 00)),
-        (time(11, 00, 00), time(11, 00, 00)), (time(11, 30, 00), time(11, 30, 00)),
-        (time(12, 00, 00), time(12, 00, 00)), (time(12, 30, 00), time(12, 30, 00)),
-        (time(13, 00, 00), time(13, 00, 00)), (time(13, 30, 00), time(13, 30, 00)),
-        (time(14, 00, 00), time(14, 00, 00)), (time(14, 30, 00), time(14, 30, 00)),
+        (time(9, 00, 00), "9:00 am"), (time(9, 30, 00), "9:30 am"),
+        (time(10, 00, 00), "10:00 am"), (time(10, 30, 00), "10:30 am"),
+        (time(11, 00, 00), "11:00 am"), (time(11, 30, 00), "11:30 am"),
+        (time(12, 00, 00), "12:00 pm"), (time(12, 30, 00),"12:30 pm"),
+        (time(13, 00, 00), "1:00 pm"), (time(13, 30, 00), "1:30 pm"),
+        (time(14, 00, 00), "2:00 pm"), (time(14, 30, 00), "2:30 pm"),
     ]
 
 ATTENDANCE_OPTIONS = [

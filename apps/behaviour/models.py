@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from apps.console.models import Student
+from datetime import time
 # Create your models here.
 
 
