@@ -33,6 +33,22 @@ class StudentBehaviourTrackingForm(forms.ModelForm):
         self.fields['term'].choices = self.fields['term'].choices[1:]
 
 
+    def is_valid(self):
+
+        for name, field in self.fields.items():
+
+            if field.disabled:
+                value = self.get_initial_for_field(field, name)
+            else:
+                value = field.widget.value_from_datadict(self.data, self.files, self.add_prefix(name))
+            print("123 here we go!:", name, ":", field.clean(value))
+
+        valid = super(StudentBehaviourTrackingForm, self).is_valid()
+
+        if not valid:
+            return valid
+
+
     class Meta:
 
         model = models.BehaviourTracking
