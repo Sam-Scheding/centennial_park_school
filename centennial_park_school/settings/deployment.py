@@ -85,8 +85,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'centennial_park_school.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -102,10 +100,7 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, '..', 'cps_external', 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'apps', 'main', 'static'),
-    os.path.join(BASE_DIR, 'apps', 'staff', 'static'),
-]
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'cps_external', 'media')
 MEDIA_URL = '/media/'

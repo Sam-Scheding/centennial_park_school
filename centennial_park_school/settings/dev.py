@@ -25,7 +25,7 @@ SECRET_KEY = 'z5n2jndq2cm#bfqzig1e45+8q&)aw*ndk(h@j$ge0mz1=v!pc5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS += ['localhost', '127.0.0.1']
 
 
 
@@ -57,10 +57,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'cps_external', 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'main', 'static'),
-    os.path.join(BASE_DIR, 'staff', 'static'),
-]
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
