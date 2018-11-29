@@ -10,41 +10,32 @@ class HomeView(generic.TemplateView):
 
     template_name = 'index.html'
 
-    def get(self, request):
+    def events(self):
 
-        # Get the next 3 events
         start_date = datetime.date.today()
         end_date = start_date + datetime.timedelta(365 * 5)  # Show events for the next 5 years
-        events = models.Event.objects.order_by('date').filter(date__range=(start_date, end_date))[0:3]
-
-        # Get student testimonials
-        # testimonials = models.Testimonial.objects.all()
-
-        return render(request, self.template_name, {})
-
+        return models.Event.objects.order_by('date').filter(date__range=(start_date, end_date))[0:3]
 
 class AboutView(generic.TemplateView):
 
     template_name = 'about.html'
 
-    def get(self, request):
-
-        return render(request, self.template_name, {})
 
 
 class PublicationsView(generic.TemplateView):
 
     template_name = 'publications.html'
 
-    def get(self, request):
+    def newsletters(self):
+        return models.Newsletter.objects.all().order_by('-year', '-term')[0:10]
 
-        newsletters = models.Newsletter.objects.all().order_by('-year', '-term')[0:10]
-        asrs = models.ASR.objects.all().order_by('-year')[0:5]
-        return render(request, self.template_name, {
-            'newsletters': newsletters,
-            'asrs': asrs,
-        })
+    def asrs(self):
+        return models.ASR.objects.all().order_by('-year')[0:5]
 
+    def publications(self):
+        pubs = models.Publication.objects.all().order_by('name')
+        print("HERE:", pubs)
+        return pubs
 
 class PaymentsView(generic.View):
 

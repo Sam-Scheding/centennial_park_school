@@ -31,19 +31,12 @@ Created by pixpalette.com - online design magazine -->
 
 {% block content %}
 {% include 'nav.html' with banner='banner1' fixed='True'%}
+    <div class="container-fluid col-centered">
+    	<div class="row">
+            <div class="col-sm-1 right-wrapper"></div>
 
-    <div class="container-fluid">
-		<div class="row">
-<!--
-        	<div class="col-sm-5 left-wrapper">
-            	<div class="event-banner-wrapper">
-
-                </div>
-            </div>
-
- -->
-            <div class="col-sm-12 right-wrapper">
-            	<div class="event-ticket-wrapper">
+            <div class="col-sm-10 col-centered" style="max-width: 1270px;">
+            	<div class="event-ticket-wrapper" style="margin: 0 auto; max-width: 1260px;">
 
                     <div class="event-tab">
 
@@ -81,24 +74,24 @@ Created by pixpalette.com - online design magazine -->
                     {% if view.teaching_staff %}
                         <h2>Teachers</h2>
                         {% for staff in view.teaching_staff %}
-                            <div class="col-md-4">
-                                <div class="ticketBox">
-                                    <div class="inactiveStatus"></div>
-
+                        	<div class="col-md-4">
+                            	<div class="ticketBox">
+                                	<div class="inactiveStatus"></div>
                                     <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="ticket-name">
-                                            {{ staff.first_name }}
-                                            <span>{{ staff.role }}</span>
+			                               	<div class="col-xs-6">
+                          							<div class="ticket-name">
+                                        	{{ staff.first_name }}
+                                          <span>{{ staff.role }}</span>
                                         </div>
+                          						</div>
                                     </div>
                                     <div style="width:100%; height:200px; background-image: url('{{ MEDIA_URL }}{{ staff.image }}'); background-size: cover; background-repeat: no-repeat;"></div>
-                                    </div>
                                     <div class="ticket-description">
-                                        <p>{{ staff.blurb }}</p>
+                                    	<p style="word-wrap: break-word;">{{ staff.blurb }}</p>
                                     </div>
                                 </div>
                             </div>
+
                         {% endfor %}
                     {% endif %}
                     <br>
@@ -164,6 +157,8 @@ Created by pixpalette.com - online design magazine -->
                 </div>
             </div>
         </div>
+        <div class="col-sm-1 right-wrapper"></div>
+
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

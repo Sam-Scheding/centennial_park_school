@@ -46,6 +46,13 @@ class ASR(models.Model):
         verbose_name = "Annual School Report"
         verbose_name_plural = "Annual School Reports"
 
+class Publication(models.Model):
+
+    file_obj = models.FileField(upload_to='publications')
+    name = models.CharField(max_length=256)
+    class Meta:
+
+        verbose_name = "publication"
 
 class Event(models.Model):
 

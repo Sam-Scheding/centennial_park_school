@@ -2,7 +2,7 @@
 
 <!--event start here-->
 
-{% if events %}
+{% if view.events %}
 <div class="events">
 	<div class="container">
 		<div class="events-main">
@@ -10,7 +10,7 @@
 				<h3>Events</h3>
 			</div>
 
-			{% for event in events %}
+			{% for event in view.events %}
 
 			<div class="events-grid">
 				<div class="col-md-3 event-month wthree">
@@ -24,16 +24,16 @@
 						<a href="/downloads/permission_slips/{{ event.id }}">Download the permission slip here</a>
 					{% endif %}
 				</div>
-<!-- 				
+<!--
 				<div class="col-md-4 event-img">
 					<div class="item item-type-move">
-						<a class="item-hover" href="single.html">						
+						<a class="item-hover" href="single.html">
 							<div class="item-info">
 								<div class="headline">
 									Learning
 									<div class="line"> </div>
 								</div>
-								<div class="date">Lorem ipsum dolor</div>							
+								<div class="date">Lorem ipsum dolor</div>
 							</div>
 							<div class="mask"> </div>
 					    </a>
@@ -52,7 +52,7 @@
 </div>
 <!--event end here-->
 		{% endif %}
-<!-- 
+<!--
 			<div class="events-grid">
 				<div class="col-md-3 event-month wthree">
 					<h3>24</h3>
@@ -66,13 +66,13 @@
 				</div>
 				<div class="col-md-4 event-img">
 					<div class="item item-type-move">
-						<a class="item-hover" href="single.html">						
+						<a class="item-hover" href="single.html">
 							<div class="item-info">
 								<div class="headline">
 									Learning
 									<div class="line"> </div>
 								</div>
-								<div class="date">Lorem ipsum dolor</div>							
+								<div class="date">Lorem ipsum dolor</div>
 							</div>
 							<div class="mask"> </div>
 					    </a>
@@ -97,13 +97,13 @@
 				</div>
 				<div class="col-md-4 event-img">
 					<div class="item item-type-move">
-						<a class="item-hover" href="single.html">						
+						<a class="item-hover" href="single.html">
 							<div class="item-info">
 								<div class="headline">
 									Learning
 									<div class="line"> </div>
 								</div>
-								<div class="date">Lorem ipsum dolor</div>							
+								<div class="date">Lorem ipsum dolor</div>
 							</div>
 							<div class="mask"> </div>
 					    </a>
@@ -115,4 +115,4 @@
 			   <div class="clearfix"> </div>
 			</div>
 
- -->			
+ -->
