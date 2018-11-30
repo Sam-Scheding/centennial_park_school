@@ -23,11 +23,12 @@ class ContactView(generic.FormView):
         reply_to = form.cleaned_data.get('email')
         message = "{} | {}\n\n{}".format(name, reply_to, form.cleaned_data.get('message'))
 
-        
+
         send_mail(
-            subject='School Website Contact Page',
-            message=message,
-            from_email='sam.scheding1@det.nsw.edu.au',
+            'School Website Contact Page',
+            message,
+            'Centennial Park School <sam.scheding1@det.nsw.edu.au>',
             recipient_list=settings.CONTACT_EMAILS,
+            fail_silently=False,
         )
         return super(ContactView, self).form_valid(form)
