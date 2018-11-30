@@ -27,7 +27,7 @@ urlpatterns = [
     url('accounts/', include('django.contrib.auth.urls')),
     url(r'', include('apps.main.urls')),
     url(r'^blog/', blog_views.BlogView.as_view()),
-    url(r'^contact/', contact_views.ContactView.as_view()),
+    url(r'^contact/', contact_views.ContactView.as_view(), name='contact'),
     url(r'^staff/', staff_views.StaffView.as_view()),
     url(r'^console/', include('apps.console.urls')),
     url(r'^tracking/behaviour/', include('apps.behaviour.urls')),

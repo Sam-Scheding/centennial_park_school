@@ -19,12 +19,19 @@
     height: 94%;
     width: 100%;
     position:absolute;
-}	
+}
 </style>
 
 <div class="contact">
 	<div class="container">
-		<div class="contact-main">	
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}">
+          <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
+    {% endif %}
+		<div class="contact-main">
 			<div class="contact-block1">
 			 	<div class="col-md-6 contact-address">
 			 	<h3>Contact Info</h3>
@@ -45,12 +52,12 @@
 			 		<form method="POST" action="">
 						{% csrf_token %}
 					    {{ form.as_p }}
-						<div class="g-recaptcha" data-sitekey="6LdgLlgUAAAAALvZaXwydtC_KbSUf4f-7cvSs0S7"></div>    					
+						<div class="g-recaptcha" data-sitekey="6LdgLlgUAAAAALvZaXwydtC_KbSUf4f-7cvSs0S7"></div>
     					<button type="submit">Submit</button>
 			 		</form>
 			 	</div>
 			 </div>
-		</div>	
+		</div>
 	</div>
 	<style type="text/css">
 		#pointer{
@@ -65,7 +72,7 @@
 	</center>
 </div>
 <div class="map-responsive">
-	<iframe frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:EisxLzc4IEF2b2NhIFN0LCBSYW5kd2ljayBOU1cgMjAzMSwgQXVzdHJhbGlh&key=AIzaSyC7vPtHIVip4e3ggCi12tfMgw0ptQCH7zI" allowfullscreen></iframe> 
+	<iframe frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:EisxLzc4IEF2b2NhIFN0LCBSYW5kd2ljayBOU1cgMjAzMSwgQXVzdHJhbGlh&key=AIzaSyC7vPtHIVip4e3ggCi12tfMgw0ptQCH7zI" allowfullscreen></iframe>
 </div>
 
 <!-- AIzaSyCznpcnHQEOSmOhVy2WqPvXMqV8dTo1O14 -->
