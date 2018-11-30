@@ -56,7 +56,7 @@ class Publication(models.Model):
 
 class Event(models.Model):
 
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField()
     title = models.CharField(max_length=512)
     body = models.TextField(null=True, blank=True)
     permission_slip = models.FileField(upload_to='permission_slips', default=None, null=True, blank=True)
