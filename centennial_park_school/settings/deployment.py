@@ -110,7 +110,6 @@ CONTACT_EMAILS = [
     'sam.scheding1@det.nsw.edu.au',
     'samscheding@gmail.com',
     'centennial-s.school@det.nsw.edu.au',
-    'david.lomas1@det.nsw.edu.au',
 ]
 
 EMAIL_HOST = "in-v3.mailjet.com"
