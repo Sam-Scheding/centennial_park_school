@@ -130,6 +130,7 @@ USE_L10N = True
 USE_TZ = True
 
 
+ENROLMENT_CAPACITY = 42
 WEEK_CHOICES = []
 for r in range(1, 13):
     WEEK_CHOICES.append((r, r))
