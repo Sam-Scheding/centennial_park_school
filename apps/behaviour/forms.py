@@ -32,6 +32,21 @@ class StudentBehaviourTrackingForm(forms.ModelForm):
         self.fields['year'].choices = self.fields['year'].choices[1:]
         self.fields['term'].choices = self.fields['term'].choices[1:]
 
+    # def clean_monday_arrived(self):
+    #     if self.data['monday_arrived'] == '':
+    #         return None
+    # def clean_tuesday_arrived(self):
+    #     if self.data['tuesday_arrived'] == '':
+    #         return None
+    # def clean_wednesday_arrived(self):
+    #     if self.data['wednesday_arrived'] == '':
+    #         return None
+    # def clean_thursday_arrived(self):
+    #     if self.data['thursday_arrived'] == '':
+    #         return None
+    # def clean_friday_arrived(self):
+    #     if self.data['friday_arrived'] == '':
+    #         return None
 
     class Meta:
 

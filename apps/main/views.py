@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import generic
+from django.conf import settings
 from . import models
 import datetime
 
@@ -9,6 +10,9 @@ APPNAME = 'main'
 class HomeView(generic.TemplateView):
 
     template_name = 'index.html'
+
+    def num_enrolments(self):
+        return settings.ENROLMENT_CAPACITY
 
     def events(self):
 
@@ -20,7 +24,8 @@ class AboutView(generic.TemplateView):
 
     template_name = 'about.html'
 
-
+    def num_enrolments(self):
+        return settings.ENROLMENT_CAPACITY
 
 class PublicationsView(generic.TemplateView):
 

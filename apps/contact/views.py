@@ -6,7 +6,6 @@ from .forms import ContactForm
 from django.contrib import messages
 from django.urls import reverse_lazy
 
-import multitasking
 
 class ContactView(generic.FormView):
 
@@ -31,7 +30,6 @@ class ContactView(generic.FormView):
         messages.success(self.request, 'Thank you for getting in touch.')
         return super(ContactView, self).form_valid(form)
 
-    @multitasking.task  # This is a decorator that turns send() into a non-blocking method
     def send(self, form):
 
         name = "{} {}".format(form.cleaned_data.get('first_name'), form.cleaned_data.get('last_name'))

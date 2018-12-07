@@ -33,8 +33,9 @@ class StudentTrackingView(generic.CreateView):
             form.save_m2m()
         except Exception as e:
             print("CAUGHT THIS:", e)
+            return False
 
-        
+
         return super().form_valid(form)
 
     # Student needs to be set so the API knows which student to load
@@ -47,7 +48,7 @@ class StudentTrackingView(generic.CreateView):
     @property
     def current_term(self):
         """
-            If the user has clicked on a term tab to view that terms points, load make that the active term.
+            If the user has clicked on a term tab to view that terms points, make that the active term.
             otherwise, load the current term from settings
         """
         term = self.request.GET.get('term', self.request.POST.get('term', settings.CURRENT_TERM))
