@@ -16,23 +16,23 @@ class BehaviourTracking(models.Model):
 
 	monday_points = models.IntegerField(blank=True, default=0)
 	monday_attended = models.IntegerField(default=0, choices=settings.ATTENDANCE_OPTIONS)
-	monday_arrived = models.TimeField(default=settings.SCHOOL_TIMES[0], choices=settings.SCHOOL_TIMES, blank=True)
+	monday_arrived = models.TimeField(default=time(9, 00, 00), choices=settings.SCHOOL_TIMES, blank=True)
 
 	tuesday_points = models.IntegerField(blank=True, default=0)
 	tuesday_attended = models.IntegerField(default=0, choices=settings.ATTENDANCE_OPTIONS)
-	tuesday_arrived = models.TimeField(default=settings.SCHOOL_TIMES[0], choices=settings.SCHOOL_TIMES, blank=True)
+	tuesday_arrived = models.TimeField(default=time(9, 00, 00), choices=settings.SCHOOL_TIMES, blank=True)
 
 	wednesday_points = models.IntegerField(blank=True, default=0)
 	wednesday_attended = models.IntegerField(default=0, choices=settings.ATTENDANCE_OPTIONS)
-	wednesday_arrived = models.TimeField(default=settings.SCHOOL_TIMES[0], choices=settings.SCHOOL_TIMES, blank=True)
+	wednesday_arrived = models.TimeField(default=time(9, 00, 00), choices=settings.SCHOOL_TIMES, blank=True)
 
 	thursday_points = models.IntegerField(blank=True, default=0)
 	thursday_attended = models.IntegerField(default=0, choices=settings.ATTENDANCE_OPTIONS)
-	thursday_arrived = models.TimeField(default=settings.SCHOOL_TIMES[0], choices=settings.SCHOOL_TIMES, blank=True)
+	thursday_arrived = models.TimeField(default=time(9, 00, 00), choices=settings.SCHOOL_TIMES, blank=True)
 
 	friday_points = models.IntegerField(blank=True, default=0)
 	friday_attended = models.IntegerField(default=0, choices=settings.ATTENDANCE_OPTIONS)
-	friday_arrived = models.TimeField(default=settings.SCHOOL_TIMES[0], choices=settings.SCHOOL_TIMES, blank=True)
+	friday_arrived = models.TimeField(default=time(9, 00, 00), choices=settings.SCHOOL_TIMES, blank=True)
 
 
 	class Meta:
