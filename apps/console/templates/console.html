@@ -31,8 +31,8 @@
 			          <th><h4><a class="table_header_link" href="#">Behaviour Tracking</a></h4></th>
 			          <!-- <th><h4><a class="table_header_link" href="#">Work It Outs</a></h4></th>			           -->
 			          <th><h4><a class="table_header_link" href="#">Edit Student</a></h4></th>
-			          <th><h4><a class="table_header_link" href="#">Disenroll</a></h4></th>
-			          <th><h4><a class="table_header_link" href="#">Add Students</a></h4></th>
+			          <th><h4><a class="table_header_link" href="#">Reports</a></h4></th>
+			          <th><h4><a class="table_header_link" href="#">Add/Remove Student</a></h4></th>
 			        </tr>
 			        <tr>
 		                <form method="POST" id="add_student_form">
@@ -59,6 +59,7 @@
 			          <td><form method="GET" action="/tracking/behaviour/{{ student.id }}">{% csrf_token %}<input type="submit" value="Behaviour Tracking"></form></td>
 			          <!-- <td><form method="GET" action="/tracking/wios/{{ student.id }}">{% csrf_token %}<input type="submit" value="Add W/O"></form></td> -->
 			          <td><form action="/console/students/edit/{{ student.id }}" method="GET"><input type="submit" value="Edit Student"></form></td>
+								<td><form action="{% url 'students:download' student.id %}" method="GET"><input type="submit" value="Download"></form></td>
 			          <td><input type="submit" value="Disenrol" onclick="disenrol('{{ student.id }}', '{{ student.first_name }}', '{{ student.last_name }}')">
 			        </tr>
 			        {% endif %}
@@ -73,7 +74,7 @@
 		                	{% endfor %}
 	                		<td></td>
 	                		<td></td>
-	                		<td></td>
+											<td></td>
 		                    <td><input type="submit" class="btn btn-default" value="Add A Student"></td>
 		                </form>
 			      	</tr>
